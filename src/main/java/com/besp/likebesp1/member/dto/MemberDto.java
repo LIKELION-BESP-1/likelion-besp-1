@@ -25,4 +25,8 @@ public class MemberDto extends BaseDto {
         this.phone = phone;
         this.createdDate = LocalDateTime.now();
     }
+
+    public void updateHashPassword(String newPassword) {
+        this.password = newPassword;
+    }
 }

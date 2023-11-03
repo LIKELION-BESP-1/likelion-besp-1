@@ -14,7 +14,7 @@ public class MemberRepository {
 
     private final SqlSessionTemplate sm;
 
-    public MemberDto findMember(@Param("userId") String userId) {
+    public MemberDto findByUserId(@Param("userId") String userId) {
         return sm.selectOne("findMember", Map.of("userId", userId));
     }
 

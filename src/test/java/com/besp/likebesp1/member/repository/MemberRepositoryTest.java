@@ -26,7 +26,7 @@ class MemberRepositoryTest {
         repository.save(memberDto);
 
         //when
-        MemberDto member = repository.findMember("user1");
+        MemberDto member = repository.findByUserId("user1");
 
         //then
         assertThat(member.getUserId()).isEqualTo("user1");
