@@ -11,3 +11,10 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: ${secrets.username}
     password: ${secrets.password}
+  mustache:
+    suffix: .html
+
+server:
+  servlet:
+    encoding:
+      force: true
