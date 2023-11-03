@@ -18,7 +18,7 @@
                                 <img src="../../static/assets/images/logos/dark-logo.svg" width="180" alt="">
                             </a>
                             <p class="text-center">Your Social Campaigns</p>
-                            <form action="/member/register" method="post">
+                            <form action="/member/register" method="post" id="myform">
                                 <div class="mb-3">
                                     <label for="userId" class="form-label">id</label>
                                     <input type="text" class="form-control" id="userId" name="userId"
@@ -41,7 +41,7 @@
                                     <label for="email" class="form-label">email</label>
                                     <input type="text" class="form-control" id="email" name="email">
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
+                                <button type="button" id="sendButton" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
                                     Up</button>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
@@ -57,6 +57,7 @@
 </div>
 <script src="../../static/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../../static/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/register.js"></script>
 </body>
 
 </html>

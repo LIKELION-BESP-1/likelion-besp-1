@@ -16,7 +16,7 @@
                                 <img src="../../static/assets/images/logos/dark-logo.svg" width="180" alt="">
                             </a>
                             <p class="text-center">Your Social Campaigns</p>
-                            <form action="/member/login" method="post">
+                            <form action="/member/login" method="post" id="myform">
                                 <div class="mb-3">
                                     <label for="userId" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="userId" name="userId"
@@ -36,7 +36,7 @@
                                     </div>
                                     <a class="text-primary fw-bold" href="../html/index.html">Forgot Password ?</a>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
+                                <button type="button" id="sendButton" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
                                     In</button>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="fs-4 mb-0 fw-bold">New to Modernize?</p>
@@ -52,6 +52,7 @@
 </div>
 <script src="../../static/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../../static/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/login.js"></script>
 </body>
 
 </html>
