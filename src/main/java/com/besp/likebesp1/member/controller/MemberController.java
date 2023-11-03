@@ -35,6 +35,13 @@ public class MemberController {
         return "/member/login";
     }
 
+    @GetMapping("/member/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @GetMapping("/member/register")
     public String getRegister() {
         return "/member/register";

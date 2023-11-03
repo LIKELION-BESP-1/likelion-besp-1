@@ -65,22 +65,37 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">AUTH</span>
                 </li>
+                {{#loginUser}} <!-- 로그인한 경우 -->
+                {{loginUser}}!
+                <li class="sidebar-item">
+                    <a aria-expanded="false" class="sidebar-link" href="/member/logout">
+            <span>
+                <i class="ti ti-user-minus"></i>
+            </span>
+                        <span class="hide-menu">로그아웃</span>
+                    </a>
+                </li>
+                {{/loginUser}}
+
+                {{^loginUser}} <!-- 로그인하지 않은 경우 -->
                 <li class="sidebar-item">
                     <a aria-expanded="false" class="sidebar-link" href="/member/login">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
+            <span>
+                <i class="ti ti-login"></i>
+            </span>
                         <span class="hide-menu">로그인</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a aria-expanded="false" class="sidebar-link" href="/member/register">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
+            <span>
+                <i class="ti ti-user-plus"></i>
+            </span>
                         <span class="hide-menu">회원가입</span>
                     </a>
                 </li>
+                {{/loginUser}}
+
 
             </ul>
         </nav>

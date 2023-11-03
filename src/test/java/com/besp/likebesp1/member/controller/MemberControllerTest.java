@@ -1,13 +1,16 @@
 package com.besp.likebesp1.member.controller;
 
+import com.besp.likebesp1.common.LoginUser;
 import com.besp.likebesp1.member.dto.MemberDto;
 import com.besp.likebesp1.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -95,5 +98,29 @@ class MemberControllerTest {
         mvc.perform(get("/anywhere"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/member/login"));
+    }
+
+    @DisplayName("로그아웃시 세션 없음")
+    @Test
+    void emptySession() throws Exception {
+        HttpSession session = mvc.perform(get("/anywhere"))
+                .andReturn().getRequest().getSession();
+        assertThat(session.getAttribute(LoginUser.LOGIN_USER.name())).isNull();
+    }
+
+    @DisplayName("로그인시 세션 있음")
+    @Test
+    void notEmptySession() throws Exception {
+        MemberDto memberDto = new MemberDto("user5", "1234", "hello", "email", "myphone");
+        memberService.save(memberDto);
+
+        MvcResult mvcResult = mvc.perform(post("/member/login")
+                        .param("userId", "user5")
+                        .param("password", "1234"))
+                .andReturn();
+
+
+        HttpSession session = mvcResult.getRequest().getSession();
+        assertThat(session.getAttribute(LoginUser.LOGIN_USER.name())).isNotNull();
     }
 }
