@@ -14,8 +14,12 @@ public class MemberRepository {
 
     private final SqlSessionTemplate sm;
 
-    public MemberDto findMember(@Param("memberId") int memberId) {
-        return sm.selectOne("findMember", Map.of("memberId", memberId));
+    public MemberDto findMember(@Param("userId") String userId) {
+        return sm.selectOne("findMember", Map.of("userId", userId));
+    }
+
+    public void save(MemberDto dto) {
+        sm.insert("insertMember", dto);
     }
 
 }

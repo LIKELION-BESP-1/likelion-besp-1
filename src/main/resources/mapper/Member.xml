@@ -9,9 +9,13 @@
     <select id="findMember" resultType="MemberDto">
         SELECT *
         FROM Member
-        WHERE memberId = #{memberId}
+        WHERE userId = #{userId}
     </select>
 
+    <insert id="insertMember" parameterType="MemberDto">
+        INSERT INTO Member (MEMBERID, USERID, USERNAME, PASSWORD, EMAIL, PHONE, CREATEDDATE)
+        VALUES (MEMBER_SEQ.NEXTVAL, #{userId}, #{username}, #{password}, #{email}, #{phone}, #{createdDate})
+    </insert>
 
 </mapper>
 
