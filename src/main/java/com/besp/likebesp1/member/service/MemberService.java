@@ -19,8 +19,15 @@ public class MemberService {
         repository.save(dto);
     }
 
-    public MemberDto findByMemberId(String userId) {
-        return repository.findByUserId(userId);
+    public boolean isMember(String userId, String password) {
+        MemberDto findMember = repository.findByUserId(userId);
+        if (findMember == null)
+            return false;
+        return isEqualPassword(password, findMember);
+    }
+
+    private static boolean isEqualPassword(String password, MemberDto findMember) {
+        return findMember.getPassword().equals(EncrpytUtil.hashPassword(password));
     }
 
 
