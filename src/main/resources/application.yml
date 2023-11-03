@@ -1,0 +1,13 @@
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  profiles:
+    active: dev
+    include: secret
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: ${secrets.username}
+    password: ${secrets.password}
