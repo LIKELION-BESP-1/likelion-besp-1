@@ -5,7 +5,9 @@ import com.besp.likebesp1.member.repository.MemberRepository;
 import com.besp.likebesp1.util.EncrpytUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -26,7 +28,7 @@ public class MemberService {
         return isEqualPassword(password, findMember);
     }
 
-    private static boolean isEqualPassword(String password, MemberDto findMember) {
+    private boolean isEqualPassword(String password, MemberDto findMember) {
         return findMember.getPassword().equals(EncrpytUtil.hashPassword(password));
     }
 

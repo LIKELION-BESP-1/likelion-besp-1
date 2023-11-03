@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 public class MemberDto extends BaseDto {
-    private Long memberId = 0L;
+    private Long memberId;
     private String userId;
     private String password;
     private String username;
