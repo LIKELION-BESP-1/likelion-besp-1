@@ -1,6 +1,6 @@
 package com.besp.likebesp1.member.repository;
 
-import com.besp.likebesp1.entity.MemberDto;
+import com.besp.likebesp1.member.dto.MemberDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

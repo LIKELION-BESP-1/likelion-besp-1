@@ -4,7 +4,7 @@
 
 <configuration>
     <typeAliases>
-        <typeAlias alias="MemberDto" type="com.besp.likebesp1.entity.MemberDto"/>
+        <typeAlias alias="MemberDto" type="com.besp.likebesp1.member.dto.MemberDto"/>
     </typeAliases>
 
     <mappers>

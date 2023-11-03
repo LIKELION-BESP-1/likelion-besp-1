@@ -1,6 +1,6 @@
 package com.besp.likebesp1.member.repository;
 
-import com.besp.likebesp1.entity.MemberDto;
+import com.besp.likebesp1.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
