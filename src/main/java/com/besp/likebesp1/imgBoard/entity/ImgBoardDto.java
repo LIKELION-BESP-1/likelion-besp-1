@@ -1,11 +1,15 @@
 package com.besp.likebesp1.imgBoard.entity;
 
 import com.besp.likebesp1.common.BaseDto;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class ImgBoardDto extends BaseDto {
-    private final long imgBoardId = 0L;
-    private final String title = "";
-    private final String imgFile = "";
-    private final String writer = "";
-    private final String createdDate = "";
+    private long imgBoardId = 0L;
+    private String title = "";
+    //private String imgFile = "";
+    private String writer = "";
+    private String createdDate = "";
 }

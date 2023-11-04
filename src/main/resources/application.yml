@@ -9,5 +9,5 @@ spring:
   datasource:
     url: jdbc:oracle:thin:@127.0.0.1:1521:XE
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    username: ${secrets.username}
-    password: ${secrets.password}
+    username: user01
+    password: '1234'
