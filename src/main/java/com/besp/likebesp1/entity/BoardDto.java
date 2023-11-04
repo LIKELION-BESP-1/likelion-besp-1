@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class BoardDto extends BaseDto {
-    private final long boardId = 0L;
-    private final String boardName = "";
-    private final String createdDate = "";
+    private Long boardId;
+    private String boardName;
+    private String createdDate;
 }
