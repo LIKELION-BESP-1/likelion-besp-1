@@ -4,7 +4,7 @@ import com.besp.likebesp1.board.entity.BoardDto;
 
 import java.util.List;
 
-public interface BoardDao {
+public interface BoardRepository {
 
     List<BoardDto> getList();
     BoardDto getView(long boardId);

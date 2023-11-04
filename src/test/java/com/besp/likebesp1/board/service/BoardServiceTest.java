@@ -4,7 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.besp.likebesp1.board.entity.BoardDto;
-import com.besp.likebesp1.board.repository.BoardDao;
+import com.besp.likebesp1.board.repository.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -16,12 +16,12 @@ import java.util.List;
 public class BoardServiceTest {
 
     private BoardServiceImpl boardService;
-    private BoardDao boardDao;
+    private BoardRepository boardRepository;
 
     @BeforeEach
     public void setup() {
-        boardDao = mock(BoardDao.class);
-        boardService = new BoardServiceImpl(boardDao);
+        boardRepository = mock(BoardRepository.class);
+        boardService = new BoardServiceImpl(boardRepository);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class BoardServiceTest {
 
         // then
         System.out.println("게시판 추가 성공");
-        verify(boardDao, times(1)).insert(boardDto);
+        verify(boardRepository, times(1)).insert(boardDto);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class BoardServiceTest {
     public void testGetList() {
         // given
         List<BoardDto> expectedList = new ArrayList<>();
-        when(boardDao.getList()).thenReturn(expectedList);
+        when(boardRepository.getList()).thenReturn(expectedList);
 
         // when
         List<BoardDto> actualList = boardService.getList();
