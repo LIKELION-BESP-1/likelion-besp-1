@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class CommentDto extends BaseDto {
-    private final long commentId = 0L;
-    private final String content = "";
-    private final String createdDate = "";
+    private Long commentId;
+    private String content;
+    private String createdDate;
 }

@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class PostDto extends BaseDto {
-    private final long postId = 0L;
-    private final String postTitle = "";
-    private final String content = "";
-    private final String createdDate = "";
+    private Long postId;
+    private String postTitle;
+    private String content;
+    private String createdDate;
 }
