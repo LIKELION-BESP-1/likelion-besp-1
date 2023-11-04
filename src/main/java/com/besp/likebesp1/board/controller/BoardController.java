@@ -1,7 +1,7 @@
 package com.besp.likebesp1.board.controller;
 
 import com.besp.likebesp1.board.entity.BoardDto;
-import com.besp.likebesp1.board.repository.BoardDao;
+import com.besp.likebesp1.board.repository.BoardRepository;
 import com.besp.likebesp1.board.service.BoardService;
 import com.besp.likebesp1.common.Pager;
 import jakarta.annotation.Resource;
@@ -10,14 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
 public class BoardController {
 
-    @Resource(name="boardDao")
-    BoardDao dao;
+    @Resource(name="boardRepository")
+    BoardRepository repository;
 
     @Resource(name="boardService")
     BoardService boardService;
@@ -35,7 +36,7 @@ public class BoardController {
         String page = Pager.makePage(10, 100, pg);//한페이지당표출될데이터개수, 전체개수, 현재페이지
         dto.setPg(pg);
 
-        List<BoardDto> list = dao.getList();
+        List<BoardDto> list = repository.getList();
 
         model.addAttribute("boardList", list);
         model.addAttribute("page", page);////////// html로 정보를 보내자
@@ -48,9 +49,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/add")
-    public String board_add_post(BoardDto dto) {
+    @ResponseBody
+    public BoardDto board_add_post(BoardDto dto) {
         boardService.insert(dto);
-        return "redirect:/board/list/1"; // 추가 후 목록 페이지로 리다이렉트
+        return dto;
     }
-
 }

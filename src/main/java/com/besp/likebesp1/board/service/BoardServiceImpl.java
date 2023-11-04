@@ -10,7 +10,7 @@ import java.util.List;
 @Repository("boardService")
 public class BoardServiceImpl implements BoardService {
 
-    @Resource(name = "boardDao")
+    @Resource(name = "boardRepository")
     BoardRepository boardRepository;
 
     public BoardServiceImpl(BoardRepository boardRepository) {
@@ -32,13 +32,4 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.insert(dto);
     }
 
-    @Override
-    public void update(BoardDto dto) {
-        boardRepository.update(dto);
-    }
-
-    @Override
-    public void delete(long boardId) {
-        boardRepository.delete(boardId);
-    }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class BoardDto extends BaseDto {
 
     private long boardId = 0L;
-    private String boardName;
+    private String boardName ="";
     private String createdDate = LocalDate.now().toString();
 
     public BoardDto() {

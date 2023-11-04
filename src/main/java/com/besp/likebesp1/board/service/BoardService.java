@@ -8,6 +8,5 @@ public interface BoardService {
     List<BoardDto> getList();
     BoardDto getView(long boardId);
     void insert(BoardDto dto);
-    void update(BoardDto dto);
-    void delete(long boardId);
+
 }
