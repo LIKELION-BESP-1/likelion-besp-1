@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/roomForm">방만들기</a><br>
+{{#roomList}}
+<tr>
+    <td><a href="/{{roomId}}">{{roomName}}</a></td>
+</tr>
+{{/roomList}}
+</body>
+</html>
