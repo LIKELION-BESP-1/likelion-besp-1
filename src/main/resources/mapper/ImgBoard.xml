@@ -19,4 +19,13 @@
                 FROM imgBoard A
             )A where pg=#{pg}
     </select>
+    <select id="ImgBoardGetView"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
+        select
+            A.imgBoardId
+             ,A.title
+             ,A.writer
+             ,A.createdDate
+        from imgBoard A
+        where A.imgBoardId = #{imgBoardId}
+    </select>
 </mapper>

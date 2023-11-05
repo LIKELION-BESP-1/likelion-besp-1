@@ -27,4 +27,14 @@ public class ImgBoardController {
         model.addAttribute("page", page);
         return "/imgBoard/imgBoardList";
     }
+
+    @GetMapping("/imgBoard/view/{id}")
+    public String imgBoardView(Model model, @PathVariable("id") int id) {
+        ImgBoardDto dto = new ImgBoardDto();
+        dto.setImgBoardId(id);
+        ImgBoardDto resultDto = repository.getView(dto);
+
+        model.addAttribute("imgBoardView", resultDto);
+        return "/imgBoard/imgBoardView";
+    }
 }

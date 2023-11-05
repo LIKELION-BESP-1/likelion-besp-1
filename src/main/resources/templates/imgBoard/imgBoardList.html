@@ -1,0 +1,35 @@
+{{>layout/header}}
+<body>
+  <form name="myform" id="myform">
+    <table class="table table-hover ">
+      <thead class="table-secondary">
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#imgBoardList}}
+        <tr>
+          <td>{{imgBoardId}}</td>
+          <td><a href="/imgBoard/view/{{imgBoardId}}">{{title}}</a></td>
+          <td>{{writer}}</td>
+          <td>{{createdDate}}</td>
+        </tr>
+        {{/imgBoardList}}
+      </tbody>
+    </table>
+
+    <ul class="pagination  justify-content-center">
+      {{{page}}}
+    </ul>
+
+    <div class="container mt-3" style="text-align:right;">
+      <a href="#" class="btn btn-secondary">Link Button</a>
+    </div>
+    <br/><br/><br/>
+    </div>
+  </form>
+</body>

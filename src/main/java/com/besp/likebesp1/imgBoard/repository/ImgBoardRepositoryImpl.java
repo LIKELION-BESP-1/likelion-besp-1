@@ -16,4 +16,9 @@ public class ImgBoardRepositoryImpl implements ImgBoardRepository {
     public List<ImgBoardDto> getList(ImgBoardDto dto) {
         return sm.selectList("ImgBoardGetList", dto);
     }
+
+    @Override
+    public ImgBoardDto getView(ImgBoardDto dto) {
+        return sm.selectOne("ImgBoardGetView", dto);
+    }
 }
