@@ -1,4 +1,4 @@
-package com.besp.likebesp1.entity;
+package com.besp.likebesp1.Chat.dto;
 
 import com.besp.likebesp1.common.BaseDto;
 import lombok.Getter;
