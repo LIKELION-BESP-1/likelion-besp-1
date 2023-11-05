@@ -1,0 +1,84 @@
+{{>layout/header}}
+<body>
+<div>
+    <form id="myform" name="myform">
+        <div class="container" style="margin-top:80px">
+            <h2>댓글 쓰기</h2>
+
+            <table class="table table-hover " style="margin-top: 30px;">
+                <colgroup>
+                    <col width="25%">
+                    <col width="*">
+                </colgroup>
+
+                <tbody>
+                <tr>
+                    <td>cmntId</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input class="form-control" id="cmntId" name="cmntId" placeholder="cmntId"
+                                   type="text" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>postId</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input class="form-control" id="postId" name="postId" placeholder="postId"
+                                   type="text" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>memberid</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input class="form-control" id="memberId" name="memberId" placeholder="memberId"
+                                   type="text" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input class="form-control" id="content" name="content" placeholder="내용을 입력하세요"
+                                   type="text" >
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="container mt-3" style="text-align:right;">
+                <a class="btn btn-secondary" href="#">Link Button</a>
+                <button class="btn btn-secondary" type="button">Button</button>
+                <input class="btn btn-secondary" type="button" value="Input Button">
+                <input class="btn btn-secondary" type="submit" value="Submit Button">
+                <input class="btn btn-secondary" type="reset" value="Reset Button">
+            </div>
+
+        </div>
+    </form>
+</div>
+    <table class="table table-hover ">
+        <thead class="table-secondary">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#cmntList}}
+        <tr>
+            <td>{{cmntId}}</td>
+            <td>{{content}}</td>
+            <td>{{createdDate}}</td>
+        </tr>
+        {{/cmntList}}
+        </tbody>
+    </table>
+</body>

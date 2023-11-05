@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cmnt">
+    <select id="Cmnt_getList"  resultType="CmntDto" parameterType="long">
+        select C.cmntId, C.content, C.createdDate
+        from Cmnt C
+        where C.postId = #{postId}
+    </select>
+
+    <insert id="Cmnt_insert" parameterType="CmntDto">
+
+        insert into Cmnt
+        (
+            cmntId,
+            postId,
+            memberId,
+            content,
+            createdDate
+        )
+        values
+            (
+            #{cmntId}
+            ,#{postId}
+            ,#{memberId}
+            ,#{content}
+            ,sysdate
+            )
+    </insert>
+</mapper>
