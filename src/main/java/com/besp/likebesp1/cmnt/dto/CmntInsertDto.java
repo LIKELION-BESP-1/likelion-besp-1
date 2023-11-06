@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CmntDto {
-    private long cmntId;
+public class CmntInsertDto {
     private String content = "";
     private String createdDate = "";
     private String postId="";

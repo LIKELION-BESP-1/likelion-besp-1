@@ -1,15 +1,18 @@
 package com.besp.likebesp1.cmnt.service;
 
 import com.besp.likebesp1.cmnt.dto.CmntDto;
+import com.besp.likebesp1.cmnt.dto.CmntInsertDto;
 import com.besp.likebesp1.cmnt.repository.CmntDao;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service("cmntService")
+@Transactional
 public class CmntServiceImpl implements CmntService{
 
     @Resource(name="cmntDao")
@@ -24,7 +27,7 @@ public class CmntServiceImpl implements CmntService{
     }
 
     @Override
-    public void insertCmnt(CmntDto dto) {
+    public void insertCmnt(CmntInsertDto dto) {
         dao.insertCmnt(dto);
     }
 

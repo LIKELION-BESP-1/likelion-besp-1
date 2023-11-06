@@ -16,7 +16,7 @@
         where C.cmntId = #{cmntId}
     </select>
 
-    <insert id="Cmnt_insert" parameterType="CmntDto">
+    <insert id="Cmnt_insert" parameterType="CmntInsertDto">
 
         insert into Cmnt
         (
@@ -28,7 +28,7 @@
         )
         values
             (
-            #{cmntId}
+            CMNT_SEQ.NEXTVAL
             ,#{postId}
             ,#{memberId}
             ,#{content}

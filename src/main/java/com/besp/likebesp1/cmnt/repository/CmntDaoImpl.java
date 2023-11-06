@@ -1,6 +1,7 @@
 package com.besp.likebesp1.cmnt.repository;
 
 import com.besp.likebesp1.cmnt.dto.CmntDto;
+import com.besp.likebesp1.cmnt.dto.CmntInsertDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public class CmntDaoImpl implements CmntDao{
     }
 
     @Override
-    public void insertCmnt(CmntDto dto) {
+    public void insertCmnt(CmntInsertDto dto) {
         sm.insert("Cmnt_insert", dto);
     }
 

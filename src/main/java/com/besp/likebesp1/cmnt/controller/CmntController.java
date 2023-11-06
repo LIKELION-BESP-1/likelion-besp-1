@@ -1,6 +1,7 @@
 package com.besp.likebesp1.cmnt.controller;
 
 import com.besp.likebesp1.cmnt.dto.CmntDto;
+import com.besp.likebesp1.cmnt.dto.CmntInsertDto;
 import com.besp.likebesp1.cmnt.service.CmntService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class CmntController {
     }
 
     @PostMapping("/cmnt/{postId}")
-    public void insertCmnt(CmntDto dto){
+    public void insertCmnt(CmntInsertDto dto){
         service.insertCmnt(dto);
     }
 }
