@@ -25,11 +25,11 @@ public class MemberService {
         MemberDto findMember = repository.findByUserId(userId);
         if (findMember == null)
             return false;
-        return isEqualPassword(password, findMember);
+        return isEqualPassword(password, findMember.getPassword());
     }
 
-    private boolean isEqualPassword(String password, MemberDto findMember) {
-        return findMember.getPassword().equals(EncrpytUtil.hashPassword(password));
+    private boolean isEqualPassword(String password, String memberPassword) {
+        return memberPassword.equals(EncrpytUtil.hashPassword(password));
     }
 
 
