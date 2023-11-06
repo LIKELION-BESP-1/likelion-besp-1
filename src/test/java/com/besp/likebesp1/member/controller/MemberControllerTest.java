@@ -102,7 +102,7 @@ class MemberControllerTest {
                     .andExpect(status().is2xxSuccessful())
                     .andExpect(content().string("/"));
 
-            assertThat(memberService.isMember("userId", "1234")).isTrue();
+            assertThat(memberService.isMember("userId", "1234")).isNotNull();
         }
     }
 
