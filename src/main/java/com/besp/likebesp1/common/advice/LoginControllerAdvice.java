@@ -9,7 +9,7 @@ import static com.besp.likebesp1.common.LoginUser.LOGIN_USER;
 @ControllerAdvice
 public class LoginControllerAdvice {
     @ModelAttribute("loginUser")
-    public String loginUser(HttpSession session) {
-        return (String) session.getAttribute(LOGIN_USER.name());
+    public Long loginUser(HttpSession session) {
+        return (Long) session.getAttribute(LOGIN_USER.name());
     }
 }
