@@ -21,4 +21,9 @@ public class ImgBoardRepositoryImpl implements ImgBoardRepository {
     public ImgBoardDto getView(ImgBoardDto dto) {
         return sm.selectOne("ImgBoardGetView", dto);
     }
+
+    @Override
+    public int delete(long id) {
+        return sm.delete("ImgBoardDelete", id);
+    }
 }

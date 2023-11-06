@@ -9,23 +9,30 @@
             A.imgBoardId
              ,A.title
              ,A.writer
+             ,A.filename
              ,to_char(A.createdDate, 'yyyy-mm-dd') createdDate
              ,A.rnum
         FROM
             (
-                SELECT A.imgBoardId, A.title, A.writer, A.createdDate,
+                SELECT A.imgBoardId, A.title, A.writer, A.filename, A.createdDate,
                        row_number() over(order by imgBoardId desc) as rnum,
                         ceil(row_number() over(order by imgBoardId desc)/10)-1 as pg
                 FROM imgBoard A
-            )A where pg=#{pg}
+            )A where pg = #{pg}
     </select>
     <select id="ImgBoardGetView"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
         select
             A.imgBoardId
              ,A.title
              ,A.writer
+             ,A.filename
              ,A.createdDate
         from imgBoard A
         where A.imgBoardId = #{imgBoardId}
+    </select>
+    <select id="ImgBoardDelete"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
+        delete
+        from imgBoard
+        where imgBoardId = #{imgBoardId}
     </select>
 </mapper>

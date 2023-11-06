@@ -7,6 +7,7 @@
           <th>번호</th>
           <th>제목</th>
           <th>작성자</th>
+          <th>파일명</th>
           <th>작성일</th>
         </tr>
       </thead>
@@ -16,6 +17,7 @@
           <td>{{imgBoardId}}</td>
           <td><a href="/imgBoard/view/{{imgBoardId}}">{{title}}</a></td>
           <td>{{writer}}</td>
+          <td>{{filename}}</td>
           <td>{{createdDate}}</td>
         </tr>
         {{/imgBoardList}}
@@ -27,9 +29,19 @@
     </ul>
 
     <div class="container mt-3" style="text-align:right;">
-      <a href="#" class="btn btn-secondary">Link Button</a>
+      <button type="button" class="btn btn-secondary">게시글 작성</button>
     </div>
     <br/><br/><br/>
     </div>
   </form>
 </body>
+
+<script>
+  function goPage(pg)
+  {
+    frm = document.myform;
+    frm.method = "get";
+    frm.action = "/imgBoard/list/" + pg;
+    frm.submit();
+  }
+</script>

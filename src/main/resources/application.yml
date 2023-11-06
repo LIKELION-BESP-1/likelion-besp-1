@@ -17,4 +17,8 @@ server:
   servlet:
     encoding:
       force: true
-
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 20MB
+fileUploadPath: fileUpload
+domain: http://127.0.0.1:9090

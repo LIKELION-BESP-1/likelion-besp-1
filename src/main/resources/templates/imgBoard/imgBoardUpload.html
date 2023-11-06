@@ -1,0 +1,26 @@
+{{>layout/header}}
+<body>
+<form name="myform" id="myform">
+    <div class="container" style="margin-top:80px">
+        <h2>게시글 수정</h2>
+        <table class="table table-hover " style="margin-top:30px;">
+            <tbody>
+            {{#imgBoardView}}
+            <tr class="table-secondary">
+                <th>제목</th>
+                <td colspan="5">{{title}}</td>
+            </tr>
+            <tr>
+                <th >작성자</th>
+                <td>{{writer}}</td>
+            </tr>
+            {{/imgBoardView}}
+            </tbody>
+        </table>
+
+        <div class="container mt-3" style="text-align:right;">
+            <button type="button" class="btn btn-secondary">완료</button>
+        </div>
+    </div>
+</form>
+</body>

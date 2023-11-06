@@ -7,4 +7,5 @@ import java.util.List;
 public interface ImgBoardRepository {
     List<ImgBoardDto> getList(ImgBoardDto dto);
     ImgBoardDto getView(ImgBoardDto dto);
+    int delete(long id);
 }

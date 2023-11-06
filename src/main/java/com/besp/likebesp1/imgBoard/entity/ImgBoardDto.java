@@ -9,7 +9,8 @@ import lombok.Setter;
 public class ImgBoardDto extends BaseDto {
     private long imgBoardId = 0L;
     private String title = "";
-    //private String imgFile = "";
+    private String filename = "";
+    private String filepath = "";
     private String writer = "";
     private String createdDate = "";
 }
