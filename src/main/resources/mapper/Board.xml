@@ -4,21 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.besp.likebesp1.board.repository.BoardRepository">
-    <select id="getList"  resultType="com.besp.likebesp1.board.entity.BoardDto" parameterType="com.besp.likebesp1.board.entity.BoardDto">
+    <select id="getList"  resultType="com.besp.likebesp1.board.entity.BoardDto" parameterType="long">
         select
-            boardId
-             ,boardName
-             ,createdDate
-        from tb_board
+            A.boardId
+             ,A.boardName
+             ,A.createdDate
+        from tb_board A
     </select>
 
     <select id="getView"  resultType="com.besp.likebesp1.board.entity.BoardDto" parameterType="long">
         select
-            boardId
-             ,boardName
-             ,createdDate
-        from tb_board
-        where boardId = #{boardId}
+            A.boardId
+             ,A.boardName
+             ,A.createdDate
+        from tb_board A
+        where A.boardId = #{boardId}
     </select>
 
     <insert id="insert" parameterType="com.besp.likebesp1.board.entity.BoardDto">

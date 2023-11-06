@@ -17,9 +17,6 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    @Resource(name="boardRepository")
-    BoardRepository repository;
-
     @Resource(name="boardService")
     BoardService boardService;
 
@@ -27,31 +24,18 @@ public class BoardController {
     public String board_list(Model model) {
         List<BoardDto> boardList = boardService.getList();
         model.addAttribute("boardList", boardList);
-        return "/board/board_list";
-    }
-
-    @GetMapping("/board/list/{pg}")
-    public String board_list(Model model, BoardDto dto, @PathVariable("pg")int pg)
-    {
-        String page = Pager.makePage(10, 100, pg);//한페이지당표출될데이터개수, 전체개수, 현재페이지
-        dto.setPg(pg);
-
-        List<BoardDto> list = repository.getList();
-
-        model.addAttribute("boardList", list);
-        model.addAttribute("page", page);////////// html로 정보를 보내자
-        return "/board/board_list";
+        return "/html/boardList";
     }
 
     @GetMapping("/board/add")
     public String board_add() {
-        return "/board/board_add";
+        return "/html/boardAddForm";
     }
 
     @PostMapping("/board/add")
-    @ResponseBody
-    public BoardDto board_add_post(BoardDto dto) {
+    public String board_add_post(BoardDto dto) {
         boardService.insert(dto);
-        return dto;
+        System.out.println(dto);
+        return "redirect:/board/list";
     }
 }
