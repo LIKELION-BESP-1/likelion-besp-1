@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 d-flex align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <h5 class="card-title fw-semibold mb-4"> 댓글 작성 </h5>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-lg-10 d-flex align-items-strech">
+                            <label class="form-label" for="cmntContent"></label>
+                            <textarea class="form-control" id="cmntContent" name="cmntContent" placeholder="내용을 입력하세요." rows="3"></textarea>
+                        </div>
+                        <div class="mb-3 col-lg-2 d-flex align-items-strech">
+                            <input class="btn btn-secondary" id="btnSendCmnt" type="button" value="등록!">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentUrl = window.location.href;
+    let number = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
+    let parsedNumber = parseInt(number);
+
+    $(() => {
+        $("#btnSendCmnt").click(confirmSubmit);
+    });
+
+    function confirmSubmit() {
+        if (confirm('댓글을 등록하시겠습니까?')) {
+            $.ajax({
+                url: "/cmnt/" + parsedNumber,
+                data: {content: $("#cmntContent").val(), postId: parsedNumber},
+                dataType: "json",
+                method: "post"
+            })
+                .done((res) => {
+                    if (res.resultCode === 'S-1') {
+                        console.log("Cmnt Write success");
+                        location.href=currentUrl;
+                    }
+                })
+                .fail((res, error, status) => {
+                    console.log(error);
+                });
+        }
+    }
+</script>

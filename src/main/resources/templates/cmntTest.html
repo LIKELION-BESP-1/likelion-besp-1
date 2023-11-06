@@ -1,5 +1,6 @@
 {{>layout/header}}
 <body>
+{{>layout/sidebar}}
 <div>
     <form id="myform" method="post" name="myform">
         <div class="container" style="margin-top:80px">
@@ -51,6 +52,9 @@
         </div>
     </form>
 </div>
+<!--  Main wrapper -->
+<div class="body-wrapper">
+    <div class="container-fluid">
     <table class="table table-hover ">
         <thead class="table-secondary">
         <tr>
@@ -69,4 +73,8 @@
         {{/cmntList}}
         </tbody>
     </table>
+    </div>
+    {{>cmntWrite}}
+</div>
+
 </body>
