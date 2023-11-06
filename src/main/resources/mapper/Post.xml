@@ -23,4 +23,10 @@
         SELECT * FROM Post WHERE boardId = #{boardId}
     </select>
 
+    <update id="Post_update" parameterType="PostDto">
+        UPDATE Post
+        SET postTitle = #{postTitle}, content = #{content}
+        WHERE postId = #{postId} AND boardId = #{boardId}
+    </update>
+
 </mapper>

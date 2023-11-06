@@ -31,4 +31,10 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(long postId, long boardId) {
         return postRepository.getPost(postId, boardId);
     }
+
+    @Override
+    public void updatePost(PostDto postDto) {
+        postRepository.update(postDto);
+    }
+
 }

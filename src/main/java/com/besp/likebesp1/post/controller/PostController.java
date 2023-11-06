@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/boards")
@@ -17,6 +19,7 @@ public class PostController {
 
     private final PostService postService;
     private final BoardService boardService;
+    private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
     public PostController(PostService postService, BoardService boardService) {
@@ -60,5 +63,29 @@ public class PostController {
         long postId = postService.insert(postDto, boardId);  // 삽입된 게시글의 id를 반환받음
         return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성 후 해당 게시글의 상세 페이지로 리다이렉트
     }
+
+    // 게시글 수정
+    @GetMapping("/{boardId}/posts/{postId}/edit")
+    public String editPostForm(@PathVariable long boardId, @PathVariable long postId, Model model) {
+        PostDto postDto = postService.getPost(boardId, postId);
+        if (postDto == null) {
+            logger.error("No post found with boardId: " + boardId + ", postId: " + postId);
+        } else {
+            model.addAttribute("post", postDto);
+            // 모델에 post 객체가 추가되었음을 확인하는 로그
+            logger.info("Post added to model: " + postDto);
+        }
+        return "/post/postEdit";
+    }
+
+
+    @PostMapping("/{boardId}/posts/{postId}/edit")
+    public String editPost(@PathVariable long boardId, @PathVariable long postId, @ModelAttribute PostDto postDto) {
+        postDto.setBoardId(boardId);
+        postDto.setPostId(postId);
+        postService.updatePost(postDto);
+        return "redirect:/{boardId}/posts/{postId}";
+    }
+
 
 }

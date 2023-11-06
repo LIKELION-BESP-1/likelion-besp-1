@@ -34,4 +34,9 @@ public class PostRepositoryImpl implements PostRepository {
         return sm.selectOne("Post_getPost", params);
     }
 
+    @Override
+    public void update(PostDto dto) {
+        sm.update("Post_update", dto);
+    }
+
 }

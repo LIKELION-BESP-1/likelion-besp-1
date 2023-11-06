@@ -10,4 +10,6 @@ public interface PostRepository {
     List<PostDto> getList(PostDto dto);
 
     PostDto getPost(long postId, long boardId);
+
+    void update(PostDto dto);
 }
