@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -138,6 +139,18 @@ class MemberControllerTest {
 
             HttpSession session = mvcResult.getRequest().getSession();
             assertThat(session.getAttribute(LoginUser.LOGIN_USER.name())).isNotNull();
+        }
+
+        @DisplayName("로그인 후 로그인 페이지 접근 불가")
+        @Test
+        void cannotAccessToLogin() throws Exception {
+
+
+            MockHttpSession mockSession = new MockHttpSession();
+            mockSession.setAttribute(LoginUser.LOGIN_USER.name(), "login");
+
+            mvc.perform(get("/member/register").session(mockSession))
+                    .andExpect(redirectedUrl("/"));
         }
     }
 
