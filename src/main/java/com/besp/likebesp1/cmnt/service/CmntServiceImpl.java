@@ -43,7 +43,7 @@ public class CmntServiceImpl implements CmntService{
     }
 
     @Override
-    public void updateCmnt(String content, long memberId, long cmntId) {
+    public void updateCmnt(String content, long cmntId) {
         Map<String, Object> map = new HashMap<>();
         map.put("content", content);
         map.put("cmntId", cmntId);
