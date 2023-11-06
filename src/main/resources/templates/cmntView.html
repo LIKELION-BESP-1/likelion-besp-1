@@ -13,12 +13,12 @@
 
                                 <!--TODO: 작성자 아이디가 보이게끔 변경-->
 
-                                <li style="margin-bottom: 10px;"><strong>{{cmntId}}</strong></li>
+                                <li style="margin-bottom: 10px;"><strong>{{username}}</strong></li>
                                 <li style="margin-bottom: 20px;">{{content}}</li>
                                 <div style="display: flex; justify-content: flex-end; align-items: center;">
                                     <span style="color: #888; font-size: 14px; margin-right: 20px;">{{createdDate}}</span>
                                     <div>
-                                        <input class="btn btn-primary" id="btnUpdateReply" style="margin-right: 10px;" type="button" value="답글달기">
+                                        <input class="btn btn-primary" id="btnReply" style="margin-right: 10px;" type="button" value="답글달기">
                                         <input class="btn btn-secondary" id="btnUpdateCmnt" style="margin-right: 10px;" type="button" value="수정">
                                         <input class="btn btn-danger" id="btnDeleteCmnt" type="button" value="삭제">
                                     </div>
@@ -36,3 +36,6 @@
 
     {{>cmntWrite}}
 </div>
+<script>
+
+</script>

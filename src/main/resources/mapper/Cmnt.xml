@@ -5,9 +5,11 @@
 
 <mapper namespace="Cmnt">
     <select id="Cmnt_getCmntsByPostId"  resultType="CmntDto" parameterType="long">
-        select C.cmntId, C.postId, C.memberId, C.content, C.createdDate
+        select C.cmntId, C.postId, C.memberId, C.content, C.createdDate, M.username
         from Cmnt C
+        JOIN Member M ON C.memberId =  M.memberId
         where C.postId = #{postId}
+        ORDER BY C.createdDate ASC
     </select>
 
     <select id="Cmnt_findByCmntId"  resultType="CmntDto" parameterType="long">
