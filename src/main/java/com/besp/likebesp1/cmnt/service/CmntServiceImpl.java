@@ -8,7 +8,9 @@ import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service("cmntService")
@@ -38,5 +40,14 @@ public class CmntServiceImpl implements CmntService{
         return optDto.orElseThrow(() ->
                 new ObjectNotFoundException(String.format("%d에 해당하는 cmnt가 없습니다.", cmntId))
         );
+    }
+
+    @Override
+    public void updateCmnt(String content, long memberId, long cmntId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", content);
+        map.put("cmntId", cmntId);
+
+        dao.updateCmnt(map);
     }
 }

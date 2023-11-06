@@ -35,4 +35,10 @@
             ,sysdate
             )
     </insert>
+
+    <update id="Cmnt_updateByCmntId" parameterType="Map">
+        UPDATE Cmnt
+        SET content = #{content}
+        WHERE cmntId = #{cmntId}
+    </update>
 </mapper>

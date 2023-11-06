@@ -12,4 +12,6 @@ public interface CmntService {
     void insertCmnt(CmntInsertDto dto);
 
     CmntDto findById(long cmntId) throws ObjectNotFoundException;
+
+    void updateCmnt(String content, long memberId, long cmntId) throws ObjectNotFoundException;
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository("cmntDao")
@@ -31,5 +32,10 @@ public class CmntDaoImpl implements CmntDao{
     public Optional<CmntDto> findById(long cmntId){
         CmntDto dto = sm.selectOne("Cmnt_findByCmntId", cmntId);
         return Optional.of(dto);
+    }
+
+    @Override
+    public void updateCmnt(Map<String, Object> map) {
+        sm.update("Cmnt_updateByCmntId", map);
     }
 }

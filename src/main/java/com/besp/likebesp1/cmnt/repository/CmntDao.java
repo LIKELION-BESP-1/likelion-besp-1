@@ -4,6 +4,7 @@ import com.besp.likebesp1.cmnt.dto.CmntDto;
 import com.besp.likebesp1.cmnt.dto.CmntInsertDto;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface CmntDao {
@@ -12,4 +13,6 @@ public interface CmntDao {
     void insertCmnt(CmntInsertDto dto);
 
     Optional<CmntDto> findById(long cmntId);
+
+    void updateCmnt(Map<String, Object> map);
 }
