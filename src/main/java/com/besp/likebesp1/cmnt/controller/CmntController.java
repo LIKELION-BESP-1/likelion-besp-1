@@ -22,7 +22,6 @@ public class CmntController {
         List<CmntDto> list = service.getList(postId);
 
         model.addAttribute("cmntList", list);
-        System.out.println("list = " + list);
         return "cmntTest";
     }
 
