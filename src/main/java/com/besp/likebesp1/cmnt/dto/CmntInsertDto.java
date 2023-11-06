@@ -10,4 +10,8 @@ public class CmntInsertDto {
     private String createdDate = "";
     private String postId="";
     private String memberId="";
+
+    public void setMemberId(String memberId){
+        this.memberId = memberId;
+    }
 }
