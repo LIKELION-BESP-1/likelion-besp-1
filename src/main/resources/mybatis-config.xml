@@ -3,6 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+        <!-- roomId 가 null로 나옴-->
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+
     <typeAliases>
         <typeAlias alias="MemberDto" type="com.besp.likebesp1.member.dto.MemberDto"/>
         <typeAlias alias="ChatMessageDto" type="com.besp.likebesp1.Chat.dto.ChatMessageDto"/>
