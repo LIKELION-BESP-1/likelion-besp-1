@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.besp.likebesp1.Chat.repository.ChatMessageDao">
-    <insert id="insertChatMessage" parameterType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
-        INSERT INTO chat_message (room_id, message, created_date)
-        VALUES (#{roomId}, #{message}, NOW())
+    <insert id="ChatMessage_insert" parameterType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
+        INSERT INTO chat_message (room_id, username, content, created_date)
+        VALUES (#{roomId}, #{username}, #{content}, sysdate)
     </insert>
 
-    <select id="selectChatMessagesByRoomId" resultType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
-        SELECT * FROM chat_message
+    <select id="ChatMessage_selectByRoomId" resultType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
+        SELECT username as username, content as content, created_date as createdDate
+        FROM chat_message
         WHERE room_id = #{roomId}
         ORDER BY created_date ASC
     </select>
