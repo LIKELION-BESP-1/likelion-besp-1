@@ -82,4 +82,23 @@ class PostServiceTest {
         assertThat(postAfterUpdate.getPostTitle()).isEqualTo("수정한 제목");
         assertThat(postAfterUpdate.getContent()).isEqualTo("수정한 내용");
     }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    public void deletePostTest() {
+        // 게시글 조회
+        long boardId = 1L; // 삭제하려는 게시글이 속한 게시판의 ID
+        long postId = 6L; // 삭제하려는 게시글의 ID
+        PostDto originalPost = postService.getPost(postId, boardId);
+        assertThat(originalPost).isNotNull();
+
+        // 게시글 삭제
+        postService.deletePost(postId, boardId);
+
+        // 삭제된 게시글 조회
+        PostDto postAfterDelete = postService.getPost(postId, boardId);
+
+        // 삭제된 게시글이 null인지 확인
+        assertThat(postAfterDelete).isNull();
+    }
 }

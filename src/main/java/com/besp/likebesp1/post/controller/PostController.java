@@ -84,7 +84,14 @@ public class PostController {
         postDto.setBoardId(boardId);
         postDto.setPostId(postId);
         postService.updatePost(postDto);
-        return "redirect:/{boardId}/posts/{postId}";
+        return "redirect:/boards/{boardId}/posts/{postId}";
+    }
+
+    // 게시글 삭제
+    @DeleteMapping("/{boardId}/posts/{postId}")
+    public String deletePost(@PathVariable long boardId, @PathVariable long postId) {
+        postService.deletePost(postId, boardId);
+        return "redirect:/boards/" + boardId + "/posts";
     }
 
 

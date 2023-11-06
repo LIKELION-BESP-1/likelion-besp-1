@@ -29,4 +29,9 @@
         WHERE postId = #{postId} AND boardId = #{boardId}
     </update>
 
+    <delete id="Post_delete">
+        DELETE FROM post
+        WHERE postId = #{postId} AND boardId = #{boardId}
+    </delete>
+
 </mapper>

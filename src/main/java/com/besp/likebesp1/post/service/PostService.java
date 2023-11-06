@@ -12,4 +12,7 @@ public interface PostService {
     PostDto getPost(long postId, long boardId);
 
     void updatePost(PostDto postDto);
+
+    void deletePost(long postId, long boardId);
+
 }

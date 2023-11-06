@@ -37,4 +37,9 @@ public class PostServiceImpl implements PostService {
         postRepository.update(postDto);
     }
 
+    @Override
+    public void deletePost(long postId, long boardId) {
+        postRepository.delete(postId, boardId);
+    }
+
 }

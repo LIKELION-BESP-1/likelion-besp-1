@@ -39,4 +39,12 @@ public class PostRepositoryImpl implements PostRepository {
         sm.update("Post_update", dto);
     }
 
+    @Override
+    public void delete(long postId, long boardId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("postId", postId);
+        params.put("boardId", boardId);
+        sm.delete("Post_delete", params);
+    }
+
 }
