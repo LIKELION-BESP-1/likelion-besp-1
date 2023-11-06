@@ -103,14 +103,24 @@
     }
 
     //저장된 채팅 불러오기
-    function loadChat(chatList) {
-        if (chatList != null) {
-            for (chat in chatList) {
-                $("#chatting").append(
-                    "<tr><td>" + "[" + chatList[chat].username + "]" + chatList[chat].content + "</td></tr>"
-                );
+    function loadChat() {
+        // 서버에서 chatList와 roomId를 가져오는 REST API 호출
+        $.ajax({
+            url: '/api/chat-messages', // REST API 엔드포인트 URL
+            method: 'GET',
+            success: function (data) {
+                chatList = data.chatList; // chatList를 서버에서 가져온 데이터로 설정
+                roomId = data.roomId;     // roomId를 서버에서 가져온 데이터로 설정
+                for (chat in chatList) {
+                    $("#chatting").append(
+                        "<tr><td>" + "[" + chatList[chat].username + "]" + chatList[chat].content + "</td></tr>"
+                    );
+                }
+            },
+            error: function () {
+                console.log('Failed to load chat data.');
             }
-        }
+        });
     }
 
     //보낸 채팅 보기
