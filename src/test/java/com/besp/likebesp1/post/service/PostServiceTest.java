@@ -3,7 +3,6 @@ package com.besp.likebesp1.post.service;
 import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.service.BoardService;
 import com.besp.likebesp1.post.entity.PostDto;
-import com.besp.likebesp1.post.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PostServiceTest {
@@ -60,10 +60,26 @@ class PostServiceTest {
     }
 
     @Test
-    void getList() {
-    }
+    @DisplayName("게시글 수정")
+    public void updatePostTest() {
+        // 게시글 조회
+        long boardId = 1L; // 수정하려는 게시글이 속한 게시판의 ID
+        long postId = 6L; // 수정하려는 게시글의 ID
+        PostDto originalPost = postService.getPost(postId, boardId);
 
-    @Test
-    void getView() {
+        // 게시글 수정
+        PostDto updatedPost = new PostDto();
+        updatedPost.setPostId(originalPost.getPostId());
+        updatedPost.setBoardId(originalPost.getBoardId());
+        updatedPost.setPostTitle("수정한 제목"); // 수정할 제목
+        updatedPost.setContent("수정한 내용"); // 수정할 내용
+        postService.updatePost(updatedPost);
+
+        // 수정된 게시글 조회
+        PostDto postAfterUpdate = postService.getPost(postId, boardId);
+
+        // 수정된 게시글의 제목과 내용이 정상적으로 업데이트되었는지 확인
+        assertThat(postAfterUpdate.getPostTitle()).isEqualTo("수정한 제목");
+        assertThat(postAfterUpdate.getContent()).isEqualTo("수정한 내용");
     }
 }
