@@ -28,12 +28,12 @@ public class MemberController {
 
     @PostMapping("/member/login")
     public ResponseEntity<String> postLogin(String userId, String password, HttpServletRequest request) {
-        if (memberService.isMember(userId, password)) {
-            HttpSession session = request.getSession();
-            session.setAttribute(LOGIN_USER.name(), userId);
-            return new ResponseEntity<>("/", HttpStatus.OK);
+        if (!memberService.isMember(userId, password)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        HttpSession session = request.getSession();
+        session.setAttribute(LOGIN_USER.name(), userId);
+        return new ResponseEntity<>("/", HttpStatus.OK);
     }
 
     @GetMapping("/member/logout")
