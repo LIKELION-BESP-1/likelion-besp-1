@@ -20,8 +20,6 @@ public class CmntServiceImpl implements CmntService{
     @Resource(name="cmntDao")
     CmntDao dao;
 
-    //TODO: make Test
-
     @Override
     public List<CmntDto> getCmntsByPostId(long postId) {
         List<CmntDto> li = dao.getCmntsByPostId(postId);

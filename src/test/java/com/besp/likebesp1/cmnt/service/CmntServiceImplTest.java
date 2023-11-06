@@ -65,4 +65,40 @@ class CmntServiceImplTest {
         String newContent = cmntService.findById(cmntId).getContent();
         assertThat(newContent).isEqualTo(content);
     }
+
+    @Test
+    @DisplayName("getCmntsByPostId는 postId로 댓글들을 가져온다.")
+    public void cmnt3() throws Exception{
+        //given
+        CmntInsertDto dto = CmntInsertDto.builder()
+                .content("댓글입니다1")
+                .memberId("1")
+                .postId("123455")
+                .build();
+        cmntService.insertCmnt(dto);
+
+        CmntInsertDto dto2 = CmntInsertDto.builder()
+                .content("댓글입니다2")
+                .memberId("1")
+                .postId("123455")
+                .build();
+        cmntService.insertCmnt(dto2);
+
+        CmntInsertDto dto3 = CmntInsertDto.builder()
+                .content("댓글입니다3")
+                .memberId("1")
+                .postId("123455")
+                .build();
+        cmntService.insertCmnt(dto3);
+
+        //when
+        List<CmntDto> cmntsByPostId = cmntService.getCmntsByPostId(123455);
+
+        //then
+        int i = 1;
+        for(CmntDto cmnt: cmntsByPostId){
+            assertThat(cmnt.getContent()).isEqualTo("댓글입니다"+i);
+            i++;
+        }
+    }
 }
