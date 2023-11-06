@@ -19,5 +19,8 @@
         WHERE postId = #{postId} AND boardId = #{boardId}
     </select>
 
+    <select id="Post_getList" parameterType="PostDto" resultType="PostDto">
+        SELECT * FROM Post WHERE boardId = #{boardId}
+    </select>
 
 </mapper>

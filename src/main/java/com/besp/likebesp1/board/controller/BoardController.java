@@ -38,4 +38,5 @@ public class BoardController {
         System.out.println(dto);
         return "redirect:/board/list";
     }
+
 }

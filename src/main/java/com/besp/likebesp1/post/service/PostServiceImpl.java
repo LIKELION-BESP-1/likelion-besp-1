@@ -17,9 +17,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void insert(PostDto dto, long boardId) {
+    public long insert(PostDto dto, long boardId) {
         dto.setBoardId(boardId);  // 게시판 아이디 설정
-        postRepository.insert(dto);
+        return postRepository.insert(dto);
     }
 
     @Override

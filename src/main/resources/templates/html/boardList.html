@@ -1,51 +1,5 @@
 {{>layout/header}}
 <body>
-<div>
-  <form action="/board/add" method="post">
-    <div class="container" style="margin-top:80px">
-      <h2>게시판 생성</h2>
-
-      <table class="table table-hover " style="margin-top: 30px;">
-        <colgroup>
-          <col width="25%">
-          <col width="*">
-        </colgroup>
-
-        <tbody>
-        <tr>
-          <td>boardId</td>
-          <td>
-            <div class="mb-3" style="margin-top:13px;">
-              <input class="form-control" id="boardId" name="boardId" placeholder="boardId"
-                     type="text" >
-            </div>
-          </td>
-        </tr>
-
-        <tr>
-          <td>게시판 이름</td>
-          <td>
-            <div class="mb-3" style="margin-top:13px;">
-              <input class="form-control" id="boardName" name="boardName" placeholder="게시판 이름을 입력하세요"
-                     type="text" >
-            </div>
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
-
-      <div class="container mt-3" style="text-align:right;">
-        <a class="btn btn-secondary" href="#">Link Button</a>
-        <button class="btn btn-secondary" type="button">Button</button>
-        <input class="btn btn-secondary" type="button" value="Input Button">
-        <input class="btn btn-secondary" type="submit" value="Submit Button">
-        <input class="btn btn-secondary" type="reset" value="Reset Button">
-      </div>
-
-    </div>
-  </form>
-</div>
 <table class="table table-hover ">
   <thead class="table-secondary">
   <tr>
@@ -58,10 +12,15 @@
   {{#boardList}}
   <tr>
     <td>{{boardId}}</td>
-    <td>{{boardName}}</td>
+    <td><a href="/boards/{{boardId}}/posts">{{boardName}}</a></td>
     <td>{{createdDate}}</td>
   </tr>
   {{/boardList}}
   </tbody>
 </table>
+
+<div class="container mt-3" style="text-align:right;">
+  <a class="btn btn-secondary" href="/board/add">게시판 생성</a>
+</div>
+
 </body>

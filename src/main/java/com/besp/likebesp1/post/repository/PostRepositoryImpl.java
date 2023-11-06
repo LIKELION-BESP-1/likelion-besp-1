@@ -16,8 +16,9 @@ public class PostRepositoryImpl implements PostRepository {
     SqlSessionTemplate sm;
 
     @Override
-    public void insert(PostDto dto) {
+    public long insert(PostDto dto) {
         sm.insert("Post_insert", dto);
+        return dto.getPostId();  // 삽입된 게시글의 id를 반환
     }
 
     @Override
