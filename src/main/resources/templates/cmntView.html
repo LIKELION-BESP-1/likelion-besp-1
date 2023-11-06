@@ -8,16 +8,25 @@
                 <div>
                     {{#cmntList}}
                     <ul>
-                        <div class="card w-100">
-                            <div class="card-body p-4">
+                        <div class="card w-100" style="border-radius: 15px; box-shadow: 0 0.5em 1em -0.125em rgba(108, 68, 162, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);">
+                            <div class="card-body p-4" style="color: #333; font-size: 16px;">
 
-                                <!--TODO: 작성자 아이디가 보이게끔 변경 및 design-->
+                                <!--TODO: 작성자 아이디가 보이게끔 변경-->
 
-                                <li>{{cmntId}} : {{createdDate}}</li>
-                                <li>{{content}}</li>
+                                <li style="margin-bottom: 10px;"><strong>{{cmntId}}</strong></li>
+                                <li style="margin-bottom: 20px;">{{content}}</li>
+                                <div style="display: flex; justify-content: flex-end; align-items: center;">
+                                    <span style="color: #888; font-size: 14px; margin-right: 20px;">{{createdDate}}</span>
+                                    <div>
+                                        <input class="btn btn-primary" id="btnUpdateReply" style="margin-right: 10px;" type="button" value="답글달기">
+                                        <input class="btn btn-secondary" id="btnUpdateCmnt" style="margin-right: 10px;" type="button" value="수정">
+                                        <input class="btn btn-danger" id="btnDeleteCmnt" type="button" value="삭제">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </ul>
+
                     {{/cmntList}}
                 </div>
                 </div>
