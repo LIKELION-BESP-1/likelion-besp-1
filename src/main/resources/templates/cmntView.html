@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="col-lg-11 d-flex align-items-stretch">
+        <div class="card w-100">
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <h5 class="card-title fw-semibold mb-4"> 댓글  </h5>
+                </div>
+                <div>
+                    {{#cmntList}}
+                    <ul>
+                        <div class="card w-100">
+                            <div class="card-body p-4">
+
+                                <!--TODO: 작성자 아이디가 보이게끔 변경 및 design-->
+
+                                <li>{{cmntId}} : {{createdDate}}</li>
+                                <li>{{content}}</li>
+                            </div>
+                        </div>
+                    </ul>
+                    {{/cmntList}}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{>cmntWrite}}
+</div>
