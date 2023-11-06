@@ -20,10 +20,10 @@ public class ChatController {
 	}
 
 	@MessageMapping("/{roomId}")
-	public void send_message(ChatMessageDto message, @DestinationVariable String chatRoomId) {
+	public void send_message(ChatMessageDto message, @DestinationVariable Long roomId) {
 		chatMessageService.saveChatMessage(message);
 
-		messagingTemplate.convertAndSend("/room/" + chatRoomId, message);
+		messagingTemplate.convertAndSend("/room/" + roomId, message);
 	}
 
 }
