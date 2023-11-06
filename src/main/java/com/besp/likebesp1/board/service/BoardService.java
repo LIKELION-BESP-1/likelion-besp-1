@@ -9,4 +9,6 @@ public interface BoardService {
     BoardDto getView(long boardId);
     void insert(BoardDto dto);
 
+    BoardDto getBoard(long boardId);
+
 }

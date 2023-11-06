@@ -28,5 +28,9 @@ public class BoardRepositoryImpl implements BoardRepository {
         sm.insert("Board_insert", dto);
     }
 
+    @Override
+    public BoardDto getBoard(long boardId) {
+        return sm.selectOne("Board_getView", boardId);
+    }
 
 }

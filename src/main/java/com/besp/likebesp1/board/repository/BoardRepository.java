@@ -14,5 +14,7 @@ public interface BoardRepository {
     //void update(BoardDto dto); // 게시판 정보 업데이트
     //void delete(long boardId); // 특정 게시판 삭제
 
+    BoardDto getBoard(long boardId);
+
 
 }

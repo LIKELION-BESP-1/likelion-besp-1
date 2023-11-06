@@ -1,5 +1,7 @@
 package com.besp.likebesp1.post.controller;
 
+import com.besp.likebesp1.board.entity.BoardDto;
+import com.besp.likebesp1.board.service.BoardService;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,12 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final BoardService boardService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, BoardService boardService) {
         this.postService = postService;
+        this.boardService = boardService;
     }
 
     // 게시판에 연결된 게시글 리스트
@@ -26,6 +30,11 @@ public class PostController {
         PostDto postDto = new PostDto();
         postDto.setBoardId(boardId);
         List<PostDto> postList = postService.getList(postDto);
+
+        // 게시판 정보를 가져와 모델에 추가
+        BoardDto board = boardService.getBoard(boardId);
+        model.addAttribute("board", board);
+
         model.addAttribute("postList", postList);
         return "/post/postList";
     }

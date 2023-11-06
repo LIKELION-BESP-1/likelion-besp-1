@@ -32,4 +32,8 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.insert(dto);
     }
 
+    @Override
+    public BoardDto getBoard(long boardId) {
+        return boardRepository.getBoard(boardId);
+    }
 }
