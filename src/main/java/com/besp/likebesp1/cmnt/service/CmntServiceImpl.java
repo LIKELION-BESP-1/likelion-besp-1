@@ -3,9 +3,11 @@ package com.besp.likebesp1.cmnt.service;
 import com.besp.likebesp1.cmnt.dto.CmntDto;
 import com.besp.likebesp1.cmnt.repository.CmntDao;
 import jakarta.annotation.Resource;
+import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("cmntService")
 public class CmntServiceImpl implements CmntService{
@@ -27,10 +29,11 @@ public class CmntServiceImpl implements CmntService{
     }
 
     @Override
-    public CmntDto findById(long cmntId){
-        CmntDto dto = dao.findById(cmntId);
+    public CmntDto findById(long cmntId) throws ObjectNotFoundException {
 
-        //TODO: null 처리?
-        return dto;
+        Optional<CmntDto> optDto = dao.findById(cmntId);
+        return optDto.orElseThrow(() ->
+                new ObjectNotFoundException(String.format("%d에 해당하는 cmnt가 없습니다.", cmntId))
+        );
     }
 }
