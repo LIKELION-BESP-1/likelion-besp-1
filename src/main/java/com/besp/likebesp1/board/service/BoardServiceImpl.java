@@ -3,11 +3,11 @@ package com.besp.likebesp1.board.service;
 import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.repository.BoardRepository;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository("boardService")
+@Service("boardService")
 public class BoardServiceImpl implements BoardService {
 
     @Resource(name = "boardRepository")
