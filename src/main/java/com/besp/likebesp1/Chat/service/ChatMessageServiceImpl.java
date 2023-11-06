@@ -17,7 +17,8 @@ public class ChatMessageServiceImpl implements ChatMessageService {
     }
 
     @Override
-    public void saveChatMessage(ChatMessageDto chatMessageDto) {
+    public void saveChatMessage(ChatMessageDto chatMessageDto, Long roomId) {
+        chatMessageDto.setRoomId(roomId);
         chatMessageDao.insertChatMessage(chatMessageDto);
     }
 
