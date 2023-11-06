@@ -1,10 +1,11 @@
 package com.besp.likebesp1.cmnt.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class CmntDto {
     private long cmntId = 0L;
     private String content = "";

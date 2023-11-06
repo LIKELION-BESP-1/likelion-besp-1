@@ -5,9 +5,15 @@
 
 <mapper namespace="Cmnt">
     <select id="Cmnt_getList"  resultType="CmntDto" parameterType="long">
-        select C.cmntId, C.content, C.createdDate
+        select C.cmntId, C.postId, C.memberId, C.content, C.createdDate
         from Cmnt C
         where C.postId = #{postId}
+    </select>
+
+    <select id="Cmnt_findByCmntId"  resultType="CmntDto" parameterType="long">
+        select C.cmntId, C.postId, C.memberId, C.content, C.createdDate
+        from Cmnt C
+        where C.cmntId = #{cmntId}
     </select>
 
     <insert id="Cmnt_insert" parameterType="CmntDto">

@@ -24,4 +24,9 @@ public class CmntDaoImpl implements CmntDao{
     public void insertCmnt(CmntDto dto) {
         sm.insert("Cmnt_insert", dto);
     }
+
+    @Override
+    public CmntDto findById(long cmntId){
+        return sm.selectOne("Cmnt_findByCmntId", cmntId);
+    }
 }

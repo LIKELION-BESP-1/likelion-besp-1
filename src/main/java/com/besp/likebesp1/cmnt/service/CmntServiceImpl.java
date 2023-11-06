@@ -25,4 +25,12 @@ public class CmntServiceImpl implements CmntService{
     public void insertCmnt(CmntDto dto) {
         dao.insertCmnt(dto);
     }
+
+    @Override
+    public CmntDto findById(long cmntId){
+        CmntDto dto = dao.findById(cmntId);
+
+        //TODO: null 처리?
+        return dto;
+    }
 }
