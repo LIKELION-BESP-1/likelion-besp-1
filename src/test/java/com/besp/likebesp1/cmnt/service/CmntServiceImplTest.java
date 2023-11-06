@@ -34,7 +34,7 @@ class CmntServiceImplTest {
         cmntService.insertCmnt(dto);
 
         //then
-        List<CmntDto> list = cmntService.getList(123456);
+        List<CmntDto> list = cmntService.getCmntsByPostId(123456);
         CmntDto dto123456 = list.get(list.size() - 1);
         assertThat(dto123456.getContent())
                 .isEqualTo("댓글입니다.");

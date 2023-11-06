@@ -17,8 +17,8 @@ public class CmntDaoImpl implements CmntDao{
 
 
     @Override
-    public List<CmntDto> getList(long postId) {
-        List<CmntDto> cmntGetList = sm.selectList("Cmnt_getList", postId);
+    public List<CmntDto> getCmntsByPostId(long postId) {
+        List<CmntDto> cmntGetList = sm.selectList("Cmnt_getCmntsByPostId", postId);
         return cmntGetList;
     }
 

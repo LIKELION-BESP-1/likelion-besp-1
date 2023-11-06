@@ -21,8 +21,8 @@ public class CmntServiceImpl implements CmntService{
     //TODO: make Test
 
     @Override
-    public List<CmntDto> getList(long postId) {
-        List<CmntDto> li = dao.getList(postId);
+    public List<CmntDto> getCmntsByPostId(long postId) {
+        List<CmntDto> li = dao.getCmntsByPostId(postId);
         return li;
     }
 

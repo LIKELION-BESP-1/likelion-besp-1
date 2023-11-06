@@ -20,7 +20,7 @@ public class CmntController {
 
     @GetMapping("/cmnt/{postId}")
     public String getCmnt(Model model, @PathVariable("postId")long postId){
-        List<CmntDto> list = service.getList(postId);
+        List<CmntDto> list = service.getCmntsByPostId(postId);
 
         model.addAttribute("cmntList", list);
         return "cmntTest";

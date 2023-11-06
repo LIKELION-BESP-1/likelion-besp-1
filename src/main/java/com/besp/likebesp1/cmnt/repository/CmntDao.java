@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CmntDao {
-    List<CmntDto> getList(long postId);
+    List<CmntDto> getCmntsByPostId(long postId);
 
     void insertCmnt(CmntInsertDto dto);
 

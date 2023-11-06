@@ -7,7 +7,7 @@ import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import java.util.List;
 
 public interface CmntService {
-    List<CmntDto> getList(long postId);
+    List<CmntDto> getCmntsByPostId(long postId);
 
     void insertCmnt(CmntInsertDto dto);
 
