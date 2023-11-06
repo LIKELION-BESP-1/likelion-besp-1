@@ -26,6 +26,6 @@
             select nvl(max(boardId), 0)+1 from Board
         </selectKey>
         insert into Board (boardId, boardName, createdDate)
-        values (#{boardId}, #{boardName}, #{createdDate, javaType=java.sql.Timestamp, jdbcType=TIMESTAMP})
+        values (#{boardId}, #{boardName}, sysdate)
     </insert>
 </mapper>
