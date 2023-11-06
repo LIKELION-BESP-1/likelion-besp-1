@@ -14,18 +14,18 @@ public class BoardRepositoryImpl implements BoardRepository {
     SqlSessionTemplate sm; //DatabaseConfig 파일에서 만든 객체를 전달한다.
 
     @Override
-    public List<BoardDto> getList() {
-        return sm.selectList("getList");
+    public List<BoardDto> getList(BoardDto dto) {
+        return sm.selectList("Board_getList", dto);
     }
 
     @Override
     public BoardDto getView(long boardId) {
-        return sm.selectOne("getView", boardId);
+        return sm.selectOne("Board_getView", boardId);
     }
 
     @Override
     public void insert(BoardDto dto) {
-        sm.insert("insert", dto);
+        sm.insert("Board_insert", dto);
     }
 
 

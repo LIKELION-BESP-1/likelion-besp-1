@@ -1,61 +1,33 @@
 package com.besp.likebesp1.board.service;
 
-import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.besp.likebesp1.board.entity.BoardDto;
-import com.besp.likebesp1.board.repository.BoardRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@SpringBootTest
 public class BoardServiceTest {
 
-    private BoardServiceImpl boardService;
-    private BoardRepository boardRepository;
-
-    @BeforeEach
-    public void setup() {
-        boardRepository = mock(BoardRepository.class);
-        boardService = new BoardServiceImpl(boardRepository);
-    }
+    @Autowired
+    private BoardService boardService;
 
     @Test
-    @Order(1)
-    @DisplayName("게시판 추가")
-    public void testInsert() {
-        // given
-        BoardDto boardDto = new BoardDto();
-        boardDto.setBoardName("자유게시판");
+    public void testInsertAndList() {
+        BoardDto dto = new BoardDto();
+        dto.setBoardName("Test Board");
 
-        // when
-        boardService.insert(boardDto);
+        // 게시판 추가 테스트
+        boardService.insert(dto);
 
-        // then
-        System.out.println("게시판 추가 성공");
-        verify(boardRepository, times(1)).insert(boardDto);
-    }
-
-    @Test
-    @Order(2)
-    @DisplayName("게시판 조회")
-    public void testGetList() {
-        // given
-        List<BoardDto> expectedList = new ArrayList<>();
-        when(boardRepository.getList()).thenReturn(expectedList);
-
-        // when
-        List<BoardDto> actualList = boardService.getList();
-
-        // then
-        System.out.println("기대한 목록 크기: " + expectedList.size());
-        System.out.println("실제 목록 크기: " + actualList.size());
-
-        assertThat(actualList).isNotNull();
-        assertThat(actualList).isEqualTo(expectedList);
+        // 게시판 리스트 가져오기 테스트
+        List<BoardDto> list = boardService.getList(dto);
+        assertFalse(list.isEmpty()); // 리스트가 비어있지 않아야 함
     }
 }

@@ -4,39 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.besp.likebesp1.board.repository.BoardRepository">
-    <select id="getList"  resultType="com.besp.likebesp1.board.entity.BoardDto" parameterType="long">
+    <select id="Board_getList"  resultType="BoardDto" parameterType="long">
         select
             A.boardId
              ,A.boardName
              ,A.createdDate
-        from tb_board A
+        from Board A
     </select>
 
-    <select id="getView"  resultType="com.besp.likebesp1.board.entity.BoardDto" parameterType="long">
+    <select id="Board_getView"  resultType="BoardDto" parameterType="long">
         select
             A.boardId
              ,A.boardName
              ,A.createdDate
-        from tb_board A
+        from Board A
         where A.boardId = #{boardId}
     </select>
 
-    <insert id="insert" parameterType="com.besp.likebesp1.board.entity.BoardDto">
+    <insert id="Board_insert">
         <selectKey resultType="Integer" keyProperty="boardId" order="BEFORE">
-            select nvl(max(boardId), 0)+1 from tb_board
+            select nvl(max(boardId), 0)+1 from Board
         </selectKey>
-
-        insert into tb_board
-        (
-        boardId
-        ,boardName
-        ,createdDate
-        )
-        values
-        (
-        #{boardId}
-        ,#{boardName}
-        ,#{createdDate}
-        )
+        insert into Board (boardId, boardName, createdDate)
+        values (#{boardId}, #{boardName}, #{createdDate, javaType=java.sql.Timestamp, jdbcType=TIMESTAMP})
     </insert>
 </mapper>

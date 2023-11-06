@@ -18,8 +18,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDto> getList() {
-        return boardRepository.getList();
+    public List<BoardDto> getList(BoardDto dto) {
+        return boardRepository.getList(dto);
     }
 
     @Override

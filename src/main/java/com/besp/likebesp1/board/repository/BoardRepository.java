@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface BoardRepository {
 
-    List<BoardDto> getList();
+    List<BoardDto> getList(BoardDto dto);
+
     BoardDto getView(long boardId);
 
     void insert(BoardDto dto); // 새로운 게시판 추가

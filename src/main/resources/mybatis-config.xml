@@ -8,6 +8,10 @@
         <typeAlias alias="BoardDto" type="com.besp.likebesp1.board.entity.BoardDto"/>
     </typeAliases>
 
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler" javaType="java.time.LocalDateTime"/>
+    </typeHandlers>
+
     <mappers>
         <!--  sql 쿼리를 두는 곳  Guestbook.xml 파일을 만들어야 한다  -->
         <!--  src/main/resources 폴더에 두자 -->
@@ -15,4 +19,5 @@
         <mapper resource="mapper/Board.xml"/>
 
     </mappers>
+
 </configuration>
