@@ -2,6 +2,7 @@ package com.besp.likebesp1.cmnt.service;
 
 import com.besp.likebesp1.cmnt.dto.CmntDto;
 import com.besp.likebesp1.cmnt.dto.CmntInsertDto;
+import org.apache.ibatis.javassist.tools.rmi.ObjectNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -100,5 +102,16 @@ class CmntServiceImplTest {
             assertThat(cmnt.getContent()).isEqualTo("댓글입니다"+i);
             i++;
         }
+    }
+
+    @Test
+    @DisplayName("findById는 id에 해당하는 댓글이 없으면 ObjectNotFoundException을 던진다.")
+    public void cmnt4() throws Exception{
+
+        //when
+        //then
+        assertThatThrownBy(()-> cmntService.findById(12345))
+                .isInstanceOf(ObjectNotFoundException.class);
+
     }
 }

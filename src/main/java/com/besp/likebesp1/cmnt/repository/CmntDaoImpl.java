@@ -31,7 +31,7 @@ public class CmntDaoImpl implements CmntDao{
     @Override
     public Optional<CmntDto> findById(long cmntId){
         CmntDto dto = sm.selectOne("Cmnt_findByCmntId", cmntId);
-        return Optional.of(dto);
+        return Optional.ofNullable(dto);
     }
 
     @Override
