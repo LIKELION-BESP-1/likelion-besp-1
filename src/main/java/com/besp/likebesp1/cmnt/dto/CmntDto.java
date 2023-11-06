@@ -11,4 +11,5 @@ public class CmntDto {
     private String createdDate = "";
     private String postId="";
     private String memberId="";
+    private String username="";
 }
