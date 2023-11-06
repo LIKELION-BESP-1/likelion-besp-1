@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChatRoomDto extends BaseDto {
-    private Long chatRoomId;
+    private Long roomId;
     private String chatRoomName;
     private String chatRoomContent;
     private String createdDate;
