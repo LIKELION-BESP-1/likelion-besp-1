@@ -6,6 +6,7 @@
     <typeAliases>
         <typeAlias alias="MemberDto" type="com.besp.likebesp1.member.dto.MemberDto"/>
         <typeAlias alias="BoardDto" type="com.besp.likebesp1.board.entity.BoardDto"/>
+        <typeAlias alias="PostDto" type="com.besp.likebesp1.post.entity.PostDto"/>
     </typeAliases>
 
     <typeHandlers>
@@ -17,6 +18,7 @@
         <!--  src/main/resources 폴더에 두자 -->
         <mapper resource="mapper/Member.xml"/>
         <mapper resource="mapper/Board.xml"/>
+        <mapper resource="mapper/Post.xml"/>
 
     </mappers>
 
