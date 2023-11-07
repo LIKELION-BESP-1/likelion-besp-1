@@ -26,14 +26,10 @@
              ,A.title
              ,A.writer
              ,A.filename
+             ,A.filepath
              ,A.createdDate
         from imgBoard A
         where A.imgBoardId = #{imgBoardId}
-    </select>
-    <select id="ImgBoardDelete"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
-        delete
-        from imgBoard
-        where imgBoardId = #{imgBoardId}
     </select>
     <insert id="ImgBoardUpload" parameterType="ImgBoardDto">
         <selectKey resultType="Integer" keyProperty="imgBoardId" order="BEFORE">
@@ -58,4 +54,18 @@
         ,sysdate
         )
     </insert>
+    <update id="ImgBoardUpdate"  parameterType="ImgBoardDto" >
+        update imgboard
+        set
+            title = #{title}
+            ,filename = #{filename}
+            ,filepath = #{filepath}
+            ,createdDate = sysdate
+        where imgBoardId = #{imgBoardId}
+    </update>
+    <delete id="ImgBoardDelete"  parameterType="ImgBoardDto" >
+        delete
+        from imgBoard
+        where imgBoardId = #{imgBoardId}
+    </delete>
 </mapper>

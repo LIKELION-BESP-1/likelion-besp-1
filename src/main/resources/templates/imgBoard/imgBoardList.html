@@ -29,7 +29,7 @@
     </ul>
 
     <div class="container mt-3" style="text-align:right;">
-      <button type="button" class="btn btn-secondary">게시글 작성</button>
+      <button type="button" class="btn btn-secondary" id="btnUpload">게시글 작성</button>
     </div>
     <br/><br/><br/>
     </div>
@@ -44,4 +44,12 @@
     frm.action = "/imgBoard/list/" + pg;
     frm.submit();
   }
+
+  $(document).ready(function() {
+    let uldBtn = $("#btnUpload");
+
+    uldBtn.click(function () {
+      location.href = "/imgBoard/upload";
+    });
+  });
 </script>

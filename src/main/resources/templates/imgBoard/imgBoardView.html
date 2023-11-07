@@ -19,15 +19,15 @@
                     <td>{{createdDate}}</td>
                 </tr>
                 <tr>
-                    <td><img src="{{filepath}}" alt="이미지" width="100" height="100"></td>
+                    <td><img src="{{filepath}}" alt="이미지" width="500" height="500" /></td>
                 </tr>
                 {{/imgBoardView}}
             </tbody>
         </table>
 
         <div class="container mt-3" style="text-align:right;">
-            <button type="button" class="btn btn-secondary">수정</button>
-            <button type="button" class="btn btn-secondary" id="deleteButton">삭제</button>
+            <button type="button" class="btn btn-secondary" id="btnUpdate">수정</button>
+            <button type="button" class="btn btn-secondary" id="btnDelete">삭제</button>
         </div>
     </div>
 </form>
@@ -36,8 +36,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        let delBtn = $("#deleteButton");
-        delBtn.click(function() {
+        $("#btnUpdate").click(function () {
+            location.href = "/imgBoard/update/{{imgBoardView.imgBoardId}}";
+        });
+        $("#btnDelete").click(function() {
             if (confirm("게시물을 삭제하시겠습니까?")) {
                 $.ajax({
                     url: "/imgBoard/delete/{{imgBoardView.imgBoardId}}",

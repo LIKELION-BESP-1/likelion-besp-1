@@ -24,12 +24,17 @@ public class ImgBoardRepositoryImpl implements ImgBoardRepository {
     }
 
     @Override
-    public void delete(long id) {
-        sm.delete("ImgBoardDelete", id);
+    public void upload(ImgBoardDto dto) {
+        sm.insert("ImgBoardUpload", dto);
     }
 
     @Override
-    public void upload(ImgBoardDto dto) {
-        sm.insert("ImgBoardUpload", dto);
+    public void update(ImgBoardDto dto) {
+        sm.update("ImgBoardUpdate", dto);
+    }
+
+    @Override
+    public void delete(long id) {
+        sm.delete("ImgBoardDelete", id);
     }
 }

@@ -44,13 +44,6 @@ public class ImgBoardController {
         return "/imgBoard/imgBoardView";
     }
 
-    @GetMapping("/imgBoard/delete/{id}")
-    public String imgBoardDelete(Model model, @PathVariable("id") int id) {
-        repository.delete(id);
-
-        return "redirect:/imgBoard/list/0";
-    }
-
     @GetMapping("/imgBoard/upload")
     public String imgBoardUpload() {
         return "/imgBoard/imgBoardUpload";
@@ -89,5 +82,52 @@ public class ImgBoardController {
         resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
 
         return resultMap;
+    }
+
+    @GetMapping("/imgBoard/update/{id}")
+    public String imgBoardUpdate(Model model, @PathVariable("id") int id) {
+        ImgBoardDto dto = new ImgBoardDto();
+        dto.setImgBoardId(id);
+        ImgBoardDto resultDto = repository.getView(dto);
+
+        model.addAttribute("imgBoardView", resultDto);
+        return "/imgBoard/imgBoardUpdate";
+    }
+
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public HashMap<String, Object> update(MultipartFile file, ImgBoardDto dto, @PathVariable("id") int id)
+    {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        String filename = file.getOriginalFilename(); //업로드된 파일의 파일명 원본
+
+        try
+        {
+            Path uploadPath = Paths.get(fileUploadPath);
+            Path filePath = uploadPath.resolve(filename); //업로드된 파일의 저장 경로 생성
+            InputStream inputStream = file.getInputStream();
+            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING); //파일 저장
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        dto.setImgBoardId(id);
+        dto.setFilename(filename);
+        dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
+        repository.update(dto);
+
+        resultMap.put("filename", filename);
+        resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
+
+        return resultMap;
+    }
+
+    @GetMapping("/imgBoard/delete/{id}")
+    public String delete(@PathVariable("id") int id) {
+        repository.delete(id);
+
+        return "redirect:/imgBoard/list/0";
     }
 }
