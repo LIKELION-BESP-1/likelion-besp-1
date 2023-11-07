@@ -55,6 +55,10 @@ public class MemberController {
 
     @PostMapping("/member/register")
     public ResponseEntity<String> postRegister(MemberDto dto) {
+        if (!memberService.canMemberBeRegistered(dto)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         memberService.save(dto);
         return new ResponseEntity<>("/", HttpStatus.OK);
     }
