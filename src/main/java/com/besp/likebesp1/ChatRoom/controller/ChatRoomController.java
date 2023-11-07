@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/room")
 public class ChatRoomController {
     private final ChatRoomService chatRoomService;
     private final ChatMessageService chatMessageService;
@@ -41,10 +43,10 @@ public class ChatRoomController {
                 model.addAttribute("chatList", chatList);
                 return "chat/room";
             } else {
-                return "redirect:/roomList";
+                return "redirect:/room/roomList";
             }
         } else {
-            return "redirect:/roomList";
+            return "redirect:/room/roomList";
         }
     }
 
@@ -53,14 +55,14 @@ public class ChatRoomController {
      *
      * @param form
      */
-    @PostMapping("/room")
+    @PostMapping("/create")
     public String createRoom(ChatRoomDto dto) {
         ChatRoomDto chatRoomDto = new ChatRoomDto();
         chatRoomDto.setChatRoomName(dto.getChatRoomName());
         chatRoomDto.setChatRoomContent(dto.getChatRoomContent());
 
         chatRoomService.createChatRoom(chatRoomDto);
-        return "redirect:/roomList";
+        return "redirect:/room/roomList";
     }
 
     /**
