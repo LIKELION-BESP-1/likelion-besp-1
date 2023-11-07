@@ -5,6 +5,7 @@ import com.besp.likebesp1.member.repository.MemberRepository;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.repository.PostRepository;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +14,13 @@ import java.util.List;
 @Service("postService")
 @Transactional
 public class PostServiceImpl implements PostService {
-    @Resource(name = "postRepository")
-    PostRepository postRepository;
+    private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
-    @Resource(name="memberRepository")
-    private MemberRepository memberRepository;
-
-    public PostServiceImpl(PostRepository postRepository) {
+    @Autowired
+    public PostServiceImpl(PostRepository postRepository, MemberRepository memberRepository) {
         this.postRepository = postRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Override
