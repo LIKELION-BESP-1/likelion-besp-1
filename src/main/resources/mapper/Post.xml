@@ -10,8 +10,8 @@
             select nvl(max(postId), 0)+1 from Post
         </selectKey>
 
-        INSERT INTO Post (postId, boardId, postTitle, content, createdDate)
-        VALUES (#{postId}, #{boardId}, #{postTitle}, #{content}, sysdate)
+        INSERT INTO Post (postId, boardId, postTitle, content, createdDate, memberId)
+        VALUES (#{postId}, #{boardId}, #{postTitle}, #{content}, sysdate, #{memberId})
     </insert>
 
     <select id="Post_getPost" parameterType="map" resultType="PostDto">
@@ -25,7 +25,7 @@
 
     <update id="Post_update" parameterType="PostDto">
         UPDATE Post
-        SET postTitle = #{postTitle}, content = #{content}
+        SET postTitle = #{postTitle}, content = #{content}, memberId = #{memberId}
         WHERE postId = #{postId} AND boardId = #{boardId}
     </update>
 

@@ -2,8 +2,11 @@ package com.besp.likebesp1.post.controller;
 
 import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.service.BoardService;
+import com.besp.likebesp1.common.RsData;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.service.PostService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.besp.likebesp1.common.LoginUser.LOGIN_USER;
 
 @Controller
 @RequestMapping("/boards")
@@ -25,6 +30,16 @@ public class PostController {
     public PostController(PostService postService, BoardService boardService) {
         this.postService = postService;
         this.boardService = boardService;
+    }
+
+    private RsData<String> checkSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return RsData.of("F-1", "세션이 만료되었습니다.");
+        }
+
+        long memberId = (long) session.getAttribute(LOGIN_USER.name());
+        return RsData.successOf(String.valueOf(memberId));
     }
 
     // 게시판에 연결된 게시글 리스트
@@ -59,7 +74,14 @@ public class PostController {
     }
 
     @PostMapping("/{boardId}/posts/new")
-    public String writePost(@PathVariable long boardId, @ModelAttribute PostDto postDto) {
+    public String writePost(@PathVariable long boardId, @ModelAttribute PostDto postDto, HttpServletRequest request) {
+        RsData<String> sessionCheckResult = checkSession(request);
+        if (!sessionCheckResult.isSuccess()) {
+            return "redirect:/login";  // 로그인 세션이 없는 경우, 로그인 페이지로 리다이렉트
+        }
+
+        String memberId = sessionCheckResult.getData();
+        postDto.setMemberId(memberId);  // 세션에서 받아온 회원 ID를 PostDto에 설정
         long postId = postService.insert(postDto, boardId);  // 삽입된 게시글의 id를 반환받음
         return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성 후 해당 게시글의 상세 페이지로 리다이렉트
     }
@@ -80,7 +102,18 @@ public class PostController {
 
 
     @PostMapping("/{boardId}/posts/{postId}/edit")
-    public String editPost(@PathVariable long boardId, @PathVariable long postId, @ModelAttribute PostDto postDto) {
+    public String editPost(@PathVariable long boardId, @PathVariable long postId, @ModelAttribute PostDto postDto, HttpServletRequest request) {
+        RsData<String> sessionCheckResult = checkSession(request);
+        if (!sessionCheckResult.isSuccess()) {
+            return "redirect:/login";  // 로그인 세션이 없는 경우, 로그인 페이지로 리다이렉트
+        }
+
+        String memberId = sessionCheckResult.getData();
+        PostDto originalPost = postService.getPost(boardId, postId);
+        if (!originalPost.getMemberId().equals(memberId)) {
+            return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성자와 로그인 사용자가 다른 경우, 게시글 상세 페이지로 리다이렉트
+        }
+
         postDto.setBoardId(boardId);
         postDto.setPostId(postId);
         postService.updatePost(postDto);
@@ -89,7 +122,18 @@ public class PostController {
 
     // 게시글 삭제
     @DeleteMapping("/{boardId}/posts/{postId}")
-    public String deletePost(@PathVariable long boardId, @PathVariable long postId) {
+    public String deletePost(@PathVariable long boardId, @PathVariable long postId, HttpServletRequest request) {
+        RsData<String> sessionCheckResult = checkSession(request);
+        if (!sessionCheckResult.isSuccess()) {
+            return "redirect:/login";  // 로그인 세션이 없는 경우, 로그인 페이지로 리다이렉트
+        }
+
+        String memberId = sessionCheckResult.getData();
+        PostDto originalPost = postService.getPost(boardId, postId);
+        if (!originalPost.getMemberId().equals(memberId)) {
+            return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성자와 로그인 사용자가 다른 경우, 게시글 상세 페이지로 리다이렉트
+        }
+
         postService.deletePost(postId, boardId);
         return "redirect:/boards/" + boardId + "/posts";
     }
