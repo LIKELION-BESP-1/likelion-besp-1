@@ -1,5 +1,7 @@
 package com.besp.likebesp1.post.service;
 
+import com.besp.likebesp1.member.dto.MemberDto;
+import com.besp.likebesp1.member.repository.MemberRepository;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.repository.PostRepository;
 import jakarta.annotation.Resource;
@@ -14,6 +16,9 @@ public class PostServiceImpl implements PostService {
     @Resource(name = "postRepository")
     PostRepository postRepository;
 
+    @Resource(name="memberRepository")
+    private MemberRepository memberRepository;
+
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
@@ -25,13 +30,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getList(PostDto dto) {
-        return postRepository.getList(dto);
+    public List<PostDto> getList(PostDto postDto) {
+        List<PostDto> postList = postRepository.getList(postDto);
+        for (PostDto post : postList) {  // 각 게시글마다 작성자의 정보 가져오기
+            MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
+            post.setUsername(member.getUsername());  // PostDto에 작성자의 이름 설정
+        }
+        return postList;
     }
 
     @Override
     public PostDto getPost(long postId, long boardId) {
-        return postRepository.getPost(postId, boardId);
+        PostDto post = postRepository.getPost(postId, boardId);
+        if (post != null) {
+            MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
+            post.setUsername(member.getUsername());
+        }
+        return post;
     }
 
     @Override
