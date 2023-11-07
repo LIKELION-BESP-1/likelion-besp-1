@@ -6,14 +6,16 @@ import com.besp.likebesp1.util.EncrpytUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-@Transactional
+
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
     private final MemberRepository repository;
 
+    @Transactional
     public void save(MemberDto dto) {
         String password = dto.getPassword();
         String hashPassword = EncrpytUtil.hashPassword(password);
@@ -21,6 +23,7 @@ public class MemberService {
         repository.save(dto);
     }
 
+    @Transactional(readOnly = true)
     public Long isMember(String userId, String password) {
         MemberDto findMember = repository.findByUserId(userId);
         if (findMember == null || !isEqualPassword(password, findMember.getPassword()))
@@ -33,4 +36,16 @@ public class MemberService {
     }
 
 
+    @Transactional(readOnly = true)
+    public boolean canMemberBeRegistered(MemberDto dto) {
+        if (hasRequiredMemberInfo(dto))
+            return false;
+
+        MemberDto findUser = repository.findByUserId(dto.getUserId());
+        return findUser == null;
+    }
+
+    private boolean hasRequiredMemberInfo(MemberDto dto) {
+        return !StringUtils.hasText(dto.getPassword()) || !StringUtils.hasText(dto.getUsername());
+    }
 }
