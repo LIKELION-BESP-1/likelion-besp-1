@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository("chatRoomDao")
 public class ChatRoomDaoImpl implements ChatRoomDao {
@@ -24,5 +25,11 @@ public class ChatRoomDaoImpl implements ChatRoomDao {
     @Override
     public List<ChatRoomDto> selectAllChatRooms() {
         return sqlSessionTemplate.selectList("ChatRoom_selectAll");
+    }
+
+    @Override
+    public Optional<ChatRoomDto> findByRoomId(Long roomId){
+        ChatRoomDto dto = sqlSessionTemplate.selectOne("ChatRoom_findByRoomId", roomId);
+        return Optional.ofNullable(dto);
     }
 }
