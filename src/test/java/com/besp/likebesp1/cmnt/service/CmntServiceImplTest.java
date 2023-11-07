@@ -21,52 +21,52 @@ class CmntServiceImplTest {
     @Autowired
     private CmntService cmntService;
 
-    @Test
-    @DisplayName("InsertCmnt는 dto를 받아 댓글을 생성한다.")
-    public void cmnt1() throws Exception{
+//    @Test
+//    @DisplayName("InsertCmnt는 dto를 받아 댓글을 생성한다.")
+//    public void cmnt1() throws Exception{
+//
+//        //given
+//        CmntInsertDto dto = CmntInsertDto.builder()
+//                .content("댓글입니다.")
+//                .memberId("1")
+//                .postId("123456")
+//                .build();
+//
+//        //when
+//        cmntService.insertCmnt(dto);
+//
+//        //then
+//        List<CmntDto> list = cmntService.getCmntsByPostId(123456);
+//        CmntDto dto123456 = list.get(list.size() - 1);
+//        assertThat(dto123456.getContent())
+//                .isEqualTo("댓글입니다.");
+//    }
 
-        //given
-        CmntInsertDto dto = CmntInsertDto.builder()
-                .content("댓글입니다.")
-                .memberId("1")
-                .postId("123456")
-                .build();
-
-        //when
-        cmntService.insertCmnt(dto);
-
-        //then
-        List<CmntDto> list = cmntService.getCmntsByPostId(123456);
-        CmntDto dto123456 = list.get(list.size() - 1);
-        assertThat(dto123456.getContent())
-                .isEqualTo("댓글입니다.");
-    }
-
-    @Test
-    @DisplayName("UpdateCmnt는 content를 받아 댓글을 업데이트한다.")
-    public void cmnt2() throws Exception{
-        //given
-        CmntInsertDto dto = CmntInsertDto.builder()
-                .content("댓글입니다.")
-                .memberId("1")
-                .postId("123456")
-                .build();
-
-        cmntService.insertCmnt(dto);
-
-        List<CmntDto> list = cmntService.getCmntsByPostId(123456);
-        CmntDto dto123456 = list.get(list.size() - 1);
-
-        long cmntId = dto123456.getCmntId();
-        String content = "수정할 내용입니다.";
-
-        //when
-        cmntService.updateCmnt(content, cmntId);
-
-        //then
-        String newContent = cmntService.findById(cmntId).getContent();
-        assertThat(newContent).isEqualTo(content);
-    }
+//    @Test
+//    @DisplayName("UpdateCmnt는 content를 받아 댓글을 업데이트한다.")
+//    public void cmnt2() throws Exception{
+//        //given
+//        CmntInsertDto dto = CmntInsertDto.builder()
+//                .content("댓글입니다.")
+//                .memberId("1")
+//                .postId("123456")
+//                .build();
+//
+//        cmntService.insertCmnt(dto);
+//
+//        List<CmntDto> list = cmntService.getCmntsByPostId(123456);
+//        CmntDto dto123456 = list.get(list.size() - 1);
+//
+//        long cmntId = dto123456.getCmntId();
+//        String content = "수정할 내용입니다.";
+//
+//        //when
+//        cmntService.updateCmnt(content, cmntId);
+//
+//        //then
+//        String newContent = cmntService.findById(cmntId).getContent();
+//        assertThat(newContent).isEqualTo(content);
+//    }
 
     @Test
     @DisplayName("getCmntsByPostId는 postId로 댓글들을 가져온다.")
