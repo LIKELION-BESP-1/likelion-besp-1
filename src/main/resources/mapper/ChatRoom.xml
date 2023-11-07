@@ -10,4 +10,10 @@
         SELECT room_id as roomId, name as chatRoomName, content as chatRoomContent, created_date as createdDate
         FROM chat_room
     </select>
+
+    <select id="ChatRoom_findByRoomId" resultType="com.besp.likebesp1.ChatRoom.dto.ChatRoomDto" parameterType="java.lang.Long">
+        SELECT room_id as roomId, name as chatRoomName, content as chatRoomContent, created_date as createdDate
+        FROM chat_room
+        WHERE room_id = #{roomId}
+    </select>
 </mapper>
