@@ -4,10 +4,12 @@ import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.repository.PostRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("postService")
+@Transactional
 public class PostServiceImpl implements PostService {
     @Resource(name = "postRepository")
     PostRepository postRepository;
