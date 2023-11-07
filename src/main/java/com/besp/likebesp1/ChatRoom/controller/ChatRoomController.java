@@ -57,7 +57,7 @@ public class ChatRoomController {
     public String createRoom(ChatRoomDto dto) {
         ChatRoomDto chatRoomDto = new ChatRoomDto();
         chatRoomDto.setChatRoomName(dto.getChatRoomName());
-        // Set other properties as needed
+        chatRoomDto.setChatRoomContent(dto.getChatRoomContent());
 
         chatRoomService.createChatRoom(chatRoomDto);
         return "redirect:/roomList";
