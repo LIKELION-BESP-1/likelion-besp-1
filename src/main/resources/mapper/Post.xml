@@ -15,12 +15,15 @@
     </insert>
 
     <select id="Post_getPost" parameterType="map" resultType="PostDto">
-        SELECT * FROM Post
-        WHERE postId = #{postId} AND boardId = #{boardId}
+        SELECT P.*, M.username FROM Post P
+        JOIN Member M ON P.memberId = M.memberId
+        WHERE P.postId = #{postId} AND P.boardId = #{boardId}
     </select>
 
     <select id="Post_getList" parameterType="PostDto" resultType="PostDto">
-        SELECT * FROM Post WHERE boardId = #{boardId}
+        SELECT P.*, M.username FROM Post P
+        JOIN Member M ON P.memberId = M.memberId
+        WHERE P.boardId = #{boardId}
     </select>
 
     <update id="Post_update" parameterType="PostDto">

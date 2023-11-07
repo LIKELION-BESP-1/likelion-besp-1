@@ -81,7 +81,7 @@ public class PostController {
         }
 
         String memberId = sessionCheckResult.getData();
-        postDto.setMemberId(memberId);  // 세션에서 받아온 회원 ID를 PostDto에 설정
+        postDto.setMemberId(memberId);  // 세션에서 받아온 로그인 아이디를 PostDto에 설정
         long postId = postService.insert(postDto, boardId);  // 삽입된 게시글의 id를 반환받음
         return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성 후 해당 게시글의 상세 페이지로 리다이렉트
     }
