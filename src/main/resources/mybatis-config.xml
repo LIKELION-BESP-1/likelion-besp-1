@@ -17,5 +17,5 @@
         <mapper resource="mapper/Post.xml"/>
 
     </mappers>
-
+  
 </configuration>

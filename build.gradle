@@ -39,7 +39,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
     testImplementation 'junit:junit:4.13.1'
-
+    
 }
 
 tasks.named('test') {
