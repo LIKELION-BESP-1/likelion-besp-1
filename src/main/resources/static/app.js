@@ -38,7 +38,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/chat/" + roomId, {}, JSON.stringify({
+    stompClient.send("/room/" + roomId, {}, JSON.stringify({
         'username': $("#username").val(),
         'content': $("#content").val()
     }));
