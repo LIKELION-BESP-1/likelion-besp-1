@@ -3,60 +3,55 @@
 <body>
 {{>layout/sidebar}}
 <!--  Body Wrapper -->
-<<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-      data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 250px;">
-    <div class="container" style="margin-top:80px">
-        <h2>{{post.postTitle}}</h2>
 
-        <table class="table table-hover " style="margin-top: 30px;">
-            <colgroup>
-                <col width="25%">
-                <col width="*">
-            </colgroup>
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 250px;">
+    <div class="container-fluid" style="margin-top:80px">
+        <div class="col-lg-11 d-flex align-items-stretch">
+            <div class="card w-100" style="margin-top: 30px;">
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <div class="card w-100" style="padding: 20px; border-radius: 15px; box-shadow: 0 0.5em 1em -0.125em rgba(108, 68, 162, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);">
+                            <div class="card-body p-4" style="color: #333; font-size: 16px;">
+                                <h2>{{post.postTitle}}</h2>
+                                <p class="text-muted">{{post.username}}</p>
+                                <p class="text-muted">{{post.createdDate}}</p>
+                            </div>
 
-            <tbody>
-            <tr>
-                <td>제목</td>
-                <td>{{post.postTitle}}</td>
-            </tr>
-            <tr>
-                <td>내용</td>
-                <td>{{post.content}}</td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td>{{post.username}}</td>
-            </tr>
-            <tr>
-                <td>작성일</td>
-                <td>{{post.createdDate}}</td>
-            </tr>
-            </tbody>
-        </table>
+                            <div class="card w-100" style="border-radius: 15px; box-shadow: 0 0.5em 1em -0.125em rgba(108, 68, 162, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);">
+                                <div class="card-body p-4" style="color: #333; font-size: 16px;">
+                                    <h5 class="card-title">{{post.content}}</h5>
+                                </div>
 
-        <!-- 수정 폼 -->
-        <div id="updatePostForm" style="display: none; margin-top: 20px;">
-            <input type="text" class="form-control" id="updatePostTitle" placeholder="수정할 제목을 입력하세요">
-            <textarea class="form-control" id="updatePostContent" placeholder="수정할 내용을 입력하세요" style="resize: vertical; margin-top: 10px;"></textarea>
-            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                <input class="btn btn-primary" id="btnSubmitUpdatePost" type="button" value="등록">
+                                <div class="card-body text-muted" style="text-align:right;">
+                                    {{#isAuthor}}
+                                    <button id="btnUpdatePost" class="btn btn-primary">수정</button>
+                                    <button id="btnDeletePost" class="btn btn-secondary">삭제</button>
+                                    {{/isAuthor}}
+                                    <a class="btn btn-danger" href="/boards/{{post.boardId}}/posts">목록으로</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 수정 폼 -->
+                    <div id="updatePostForm" style="display: none; margin-top: 20px;">
+                        <input type="text" class="form-control" id="updatePostTitle" placeholder="수정할 제목을 입력하세요">
+                        <textarea class="form-control" id="updatePostContent" placeholder="수정할 내용을 입력하세요" style="resize: vertical; margin-top: 10px;"></textarea>
+                        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <input class="btn btn-primary" id="btnSubmitUpdatePost" type="button" value="등록">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        {{> cmntView}}
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="container mt-3" style="text-align:right;">
-            {{#isAuthor}}
-            <button id="btnUpdatePost" class="btn btn-primary">수정하기</button>
-            <button id="btnDeletePost" class="btn btn-danger">삭제하기</button>
-            {{/isAuthor}}
-
-            <a class="btn btn-secondary" href="/boards/{{post.boardId}}/posts">목록으로</a>
-        </div>
-
-        <div>
-            {{> cmntView}}
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function() {
         // 게시글 수정
