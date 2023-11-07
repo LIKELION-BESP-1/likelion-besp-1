@@ -48,4 +48,11 @@ public class CmntServiceImpl implements CmntService{
 
         dao.updateCmnt(map);
     }
+
+    @Override
+    public void insertReply(CmntInsertDto dto) {
+        dto.getContent();
+
+        dao.insertCmnt(dto);
+    }
 }

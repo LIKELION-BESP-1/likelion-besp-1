@@ -13,7 +13,7 @@
 
                                 <!--TODO: 작성자 아이디가 보이게끔 변경-->
 
-                                <li style="margin-bottom: 10px;"><strong>{{username}}</strong></li>
+                                <li id="username-{{cmntId}}" style="margin-bottom: 10px;"><strong>{{username}}</strong></li>
                                 <li style="margin-bottom: 20px;">{{content}}</li>
                                 <div style="display: flex; justify-content: flex-end; align-items: center;">
                                     <span style="color: #888; font-size: 14px; margin-right: 20px;">{{createdDate}}</span>
@@ -68,21 +68,62 @@
             var url = "/cmnt/" + cmntId;
 
             // AJAX 요청 보내는 코드 작성
-            $.ajax({
-                url: url,
-                method: "PATCH",
-                data: {
-                    content: updateContent
-                },
-                success: function(response) {
-                    // 요청이 성공했을 때 처리할 내용
-                    console.log("수정 요청이 성공했습니다.");
-                },
-                error: function(error) {
-                    // 요청이 실패했을 때 처리할 내용
-                    console.log("수정 요청이 실패했습니다.");
-                }
-            });
+            var confirmUpdate = confirm("정말로 수정하시겠습니까?");
+            if (confirmUpdate) {
+                $.ajax({
+                    url: url,
+                    method: "PATCH",
+                    data: {
+                        content: updateContent
+                    },
+                    success: function (response) {
+                        // 요청이 성공했을 때 처리할 내용
+                        console.log("수정 요청이 성공했습니다.");
+                        location.href=currentUrl;
+                    },
+                    error: function (error) {
+                        // 요청이 실패했을 때 처리할 내용
+                        console.log("수정 요청이 실패했습니다.");
+                        location.href=currentUrl;
+                    }
+                });
+            }
+        });
+
+        //답글달기
+        $("input[id^='btnReply-']").click(function() {
+            var cmntId = $(this).attr("id").split("-")[1];
+            var replyForm = $("#replyForm-" + cmntId);
+            replyForm.show();
+        });
+
+        $("input[id^='btnSubmitReply-']").click(function() {
+            var cmntId = $(this).attr("id").split("-")[1];
+            var username = $("#username-" + cmntId).text();
+            var replyContent = $("#replyContent-" + cmntId).val();
+            var url = "/cmnt/" + parsedNumber + "/reply";
+
+            // AJAX 요청 보내는 코드 작성
+            var confirmReply = confirm("정말로 답글을 등록하시겠습니까?");
+            if (confirmReply) {
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        content: username + "님에게 답글... >  " + replyContent
+                    },
+                    success: function (response) {
+                        // 요청이 성공했을 때 처리할 내용
+                        console.log("답글 등록 요청이 성공했습니다.");
+                        location.href=currentUrl;
+                    },
+                    error: function (error) {
+                        // 요청이 실패했을 때 처리할 내용
+                        console.log("답글 등록 요청이 실패했습니다.");
+                        location.href=currentUrl;
+                    }
+                });
+            }
         });
     });
 </script>
