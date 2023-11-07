@@ -6,10 +6,19 @@
 </head>
 <body>
 <a href="/roomForm">방만들기</a><br>
-{{#roomList}}
-<tr>
-    <td><a href="/{{roomId}}">{{roomName}}</a></td>
-</tr>
-{{/roomList}}
+<table>
+    <thead>
+    <tr>
+        <th>방 이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#roomList}}
+    <tr>
+        <td><a href="/{{roomId}}">{{chatRoomName}}</a></td>
+    </tr>
+    {{/roomList}}
+    </tbody>
+</table>
 </body>
 </html>
