@@ -35,4 +35,27 @@
         from imgBoard
         where imgBoardId = #{imgBoardId}
     </select>
+    <insert id="ImgBoardUpload" parameterType="ImgBoardDto">
+        <selectKey resultType="Integer" keyProperty="imgBoardId" order="BEFORE">
+            select nvl(max(imgBoardId), 0)+1 from imgBoard
+        </selectKey>
+        insert into imgBoard
+        (
+        imgBoardId
+        ,title
+        ,writer
+        ,filename
+        ,filepath
+        ,createdDate
+        )
+        values
+        (
+        #{imgBoardId}
+        ,#{title}
+        ,#{writer}
+        ,#{filename}
+        ,#{filepath}
+        ,sysdate
+        )
+    </insert>
 </mapper>

@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository("imgBoardRepository")
@@ -23,7 +24,12 @@ public class ImgBoardRepositoryImpl implements ImgBoardRepository {
     }
 
     @Override
-    public int delete(long id) {
-        return sm.delete("ImgBoardDelete", id);
+    public void delete(long id) {
+        sm.delete("ImgBoardDelete", id);
+    }
+
+    @Override
+    public void upload(ImgBoardDto dto) {
+        sm.insert("ImgBoardUpload", dto);
     }
 }

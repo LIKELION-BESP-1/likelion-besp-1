@@ -1,26 +1,72 @@
 {{>layout/header}}
 <body>
-<form name="myform" id="myform">
+<form method="post" name="myform" id="myform" enctype="multipart/form-data">
     <div class="container" style="margin-top:80px">
-        <h2>게시글 수정</h2>
+        <h2>게시글 작성</h2>
         <table class="table table-hover " style="margin-top:30px;">
             <tbody>
-            {{#imgBoardView}}
-            <tr class="table-secondary">
-                <th>제목</th>
-                <td colspan="5">{{title}}</td>
-            </tr>
-            <tr>
-                <th >작성자</th>
-                <td>{{writer}}</td>
-            </tr>
-            {{/imgBoardView}}
+                <tr>
+                    <td>제목</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input type="text" class="form-control" id="title" name="title"
+                                   placeholder="제목을 입력하세요" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input type="text" class="form-control" id="writer" name="writer"
+                                   placeholder="이름을 입력하세요" >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>이미지</td>
+                    <td>
+                        <div class="mb-3" style="margin-top:13px;">
+                            <input type="file" class="form-control" id="file" name="file">
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
         <div class="container mt-3" style="text-align:right;">
-            <button type="button" class="btn btn-secondary">완료</button>
+            <button type="button" class="btn btn-secondary" id="btnUpload">완료</button>
         </div>
     </div>
 </form>
 </body>
+
+<script>
+    $(()=>{
+        console.log("11111");
+        $("#btnUpload").click( ()=>{
+            console.log("22222");
+            let frmData = new FormData($("#myform")[0]);
+            console.log( frmData );
+            for(key of frmData.keys()){
+                console.log( frmData.get(key));
+            }
+
+            $.ajax({url:"/upload",
+                data:frmData,
+                contentType:false, //파일전송에 반드시 필요
+                processData:false, //파일전송에 반드시 필요
+                method:"POST",
+                dataType:"json"
+            })
+                .done( (res)=>{
+                    alert("전송성공");
+                    console.log(res.filename);
+                    console.log(res.filepath);
+                })
+                .fail( (res, error, status)=>{
+                    console.log( error );
+                })
+        });
+    })
+</script>
