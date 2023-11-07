@@ -6,6 +6,7 @@ $(() => {
             data: $("#myform").serialize(),
         })
             .done((res) => {
+                alert("성공");
                 location.href = res;
             })
             .fail((res, status, error) => {
