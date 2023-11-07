@@ -1,0 +1,26 @@
+{{>layout/header}}
+<body>
+<table class="table table-hover ">
+  <thead class="table-secondary">
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#boardList}}
+  <tr>
+    <td>{{boardId}}</td>
+    <td><a href="/boards/{{boardId}}/posts">{{boardName}}</a></td>
+    <td>{{createdDate}}</td>
+  </tr>
+  {{/boardList}}
+  </tbody>
+</table>
+
+<div class="container mt-3" style="text-align:right;">
+  <a class="btn btn-secondary" href="/board/add">게시판 생성</a>
+</div>
+
+</body>
