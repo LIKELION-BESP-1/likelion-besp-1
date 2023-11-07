@@ -2,19 +2,21 @@ package com.besp.likebesp1.post.controller;
 
 import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.service.BoardService;
+import com.besp.likebesp1.cmnt.dto.CmntDto;
+import com.besp.likebesp1.cmnt.service.CmntService;
 import com.besp.likebesp1.common.RsData;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static com.besp.likebesp1.common.LoginUser.LOGIN_USER;
 
@@ -24,12 +26,14 @@ public class PostController {
 
     private final PostService postService;
     private final BoardService boardService;
+    private final CmntService cmntService;
     private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
-    public PostController(PostService postService, BoardService boardService) {
+    public PostController(PostService postService, BoardService boardService, CmntService cmntService) {
         this.postService = postService;
         this.boardService = boardService;
+        this.cmntService = cmntService;
     }
 
     private RsData<String> checkSession(HttpServletRequest request) {
@@ -61,7 +65,9 @@ public class PostController {
     @GetMapping("/{boardId}/posts/{postId}")
     public String getPostDetail(@PathVariable long boardId, @PathVariable long postId, Model model) {
         PostDto post = postService.getPost(postId, boardId);
+        List<CmntDto> cmntList = cmntService.getCmntsByPostId(postId);  // 댓글 목록 가져오기
         model.addAttribute("post", post);
+        model.addAttribute("cmntList", cmntList);  // 댓글 목록을 Model에 추가
         return "/post/postDetail";
     }
 
