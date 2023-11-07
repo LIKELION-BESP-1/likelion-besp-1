@@ -9,6 +9,7 @@
             <thead>
             <tr>
                 <th>제목</th>
+                <th>작성자</th>
                 <th>작성일</th>
             </tr>
             </thead>
@@ -16,6 +17,7 @@
             {{#postList}}
             <tr>
                 <td><a href="/boards/{{boardId}}/posts/{{postId}}">{{postTitle}}</a></td>
+                <td>{{memberId}}</td>
                 <td>{{createdDate}}</td>
             </tr>
             {{/postList}}
