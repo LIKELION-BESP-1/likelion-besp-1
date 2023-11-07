@@ -19,8 +19,10 @@ public class Pager {
             pageGroupEnd = totalPage + 1;
         }
 
+        //맨 처음 페이지
         tag = tag + "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"goPage('0')\">&lt;&lt;</a></li>";
 
+        //이전 페이지
         if(curPage > 0) {
             int temp = curPage - 1;
             tag = tag + "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"goPage('"+temp+"')\">&lt;</a></li>";
@@ -38,6 +40,7 @@ public class Pager {
             }
         }
 
+        //다음 페이지
         if(curPage < totalPage) {
             int temp = curPage + 1;
             tag = tag + "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"goPage('"+temp+"')\">&gt;</a></li>";
@@ -45,6 +48,7 @@ public class Pager {
             tag = tag + "<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&gt;</a></li>";
         }
 
+        //마지막 페이지
         tag = tag + "<li class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"goPage('"+totalPage+"')\">&gt;&gt;</a></li>";
 
         return tag;

@@ -6,12 +6,22 @@
     <typeAliases>
         <typeAlias alias="ImgBoardDto" type="com.besp.likebesp1.imgBoard.entity.ImgBoardDto"/>
         <typeAlias alias="MemberDto" type="com.besp.likebesp1.member.dto.MemberDto"/>
+
+        <typeAlias alias="BoardDto" type="com.besp.likebesp1.board.entity.BoardDto"/>
+        <typeAlias alias="PostDto" type="com.besp.likebesp1.post.entity.PostDto"/>
+      
+        <typeAlias alias="CmntDto" type="com.besp.likebesp1.cmnt.dto.CmntDto"/>
+        <typeAlias alias="CmntInsertDto" type="com.besp.likebesp1.cmnt.dto.CmntDto"/>
     </typeAliases>
 
     <mappers>
         <!--  sql 쿼리를 두는 곳  Guestbook.xml 파일을 만들어야 한다  -->
-        <mapper resource="mapper/ImgBoard.xml"/>
         <!--  src/main/resources 폴더에 두자 -->
         <mapper resource="mapper/Member.xml"/>
+        <mapper resource="mapper/Board.xml"/>
+        <mapper resource="mapper/ImgBoard.xml"/>
+        <mapper resource="mapper/Post.xml"/>
+        <mapper resource="mapper/Cmnt.xml"/>
     </mappers>
+  
 </configuration>
