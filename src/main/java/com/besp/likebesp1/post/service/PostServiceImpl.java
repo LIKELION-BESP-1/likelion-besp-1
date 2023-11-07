@@ -32,9 +32,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getList(PostDto postDto) {
         List<PostDto> postList = postRepository.getList(postDto);
-        for (PostDto post : postList) {  // 각 게시글마다 작성자의 정보 가져오기
-            MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
-            post.setUsername(member.getUsername());  // PostDto에 작성자의 이름 설정
+        for (PostDto post : postList) {
+            attachAuthorInfo(post);
         }
         return postList;
     }
@@ -43,8 +42,7 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(long postId, long boardId) {
         PostDto post = postRepository.getPost(postId, boardId);
         if (post != null) {
-            MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
-            post.setUsername(member.getUsername());
+            attachAuthorInfo(post);
         }
         return post;
     }
@@ -60,10 +58,15 @@ public class PostServiceImpl implements PostService {
     }
 
     // 게시글 소유자 확인 메소드
-    @Override
     public boolean checkPostOwner(String memberId, long boardId, long postId) {
         PostDto originalPost = getPost(boardId, postId);
         return originalPost.getMemberId().equals(memberId);
+    }
+
+    // 작성자 정보 설정 메소드
+    private void attachAuthorInfo(PostDto post) {
+        MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
+        post.setUsername(member.getUsername());
     }
 
 }
