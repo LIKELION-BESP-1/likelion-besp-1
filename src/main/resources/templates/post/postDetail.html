@@ -40,8 +40,11 @@
         </div>
 
         <div class="container mt-3" style="text-align:right;">
+            {{#isAuthor}}
             <button id="btnUpdatePost" class="btn btn-primary">수정하기</button>
             <button id="btnDeletePost" class="btn btn-danger">삭제하기</button>
+            {{/isAuthor}}
+
             <a class="btn btn-secondary" href="/boards/{{post.boardId}}/posts">목록으로</a>
         </div>
 
@@ -92,20 +95,23 @@
             var url = "/boards/{{post.boardId}}/posts/" + postId;
 
             // AJAX 요청 보내는 코드 작성
-            $.ajax({
-                url: url,
-                method: "DELETE",
-                success: function (response) {
-                    // 요청이 성공했을 때 처리할 내용
-                    console.log("삭제 요청이 성공했습니다.");
-                    location.href = "/boards/{{post.boardId}}/posts";
-                },
-                error: function (error) {
-                    // 요청이 실패했을 때 처리할 내용
-                    console.log("삭제 요청이 실패했습니다.");
-                    alert("삭제 요청이 실패했습니다.");
-                }
-            });
+            var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+            if (confirmDelete) {
+                $.ajax({
+                    url: url,
+                    method: "DELETE",
+                    success: function (response) {
+                        // 요청이 성공했을 때 처리할 내용
+                        console.log("삭제 요청이 성공했습니다.");
+                        location.href = "/boards/{{post.boardId}}/posts";
+                    },
+                    error: function (error) {
+                        // 요청이 실패했을 때 처리할 내용
+                        console.log("삭제 요청이 실패했습니다.");
+                        alert("삭제 요청이 실패했습니다.");
+                    }
+                });
+            }
         });
     });
 </script>

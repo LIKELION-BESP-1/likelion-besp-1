@@ -82,9 +82,18 @@ public class PostController {
 
     // 게시글 상세 페이지
     @GetMapping("/{boardId}/posts/{postId}")
-    public String getPostDetail(@PathVariable long boardId, @PathVariable long postId, Model model) {
+    public String getPostDetail(@PathVariable long boardId, @PathVariable long postId, Model model, HttpServletRequest request) {
         PostDto post = postService.getPost(postId, boardId);
         List<CmntDto> cmntList = cmntService.getCmntsByPostId(postId);  // 댓글 목록 가져오기
+
+        // 세션에서 현재 사용자 아이디 가져오기
+        RsData<String> sessionCheckResult = checkSession(request);
+        String currentUserId = sessionCheckResult.getData();
+
+        // 현재 사용자가 게시글 작성자인지 확인
+        boolean isAuthor = post.getMemberId().equals(currentUserId);
+        model.addAttribute("isAuthor", isAuthor);
+
         model.addAttribute("post", post);
         model.addAttribute("cmntList", cmntList);  // 댓글 목록을 Model에 추가
         return "/post/postDetail";
