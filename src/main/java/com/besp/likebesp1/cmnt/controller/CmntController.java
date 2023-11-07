@@ -46,9 +46,9 @@ public class CmntController {
         return RsData.of("S-1", "댓글이 성공적으로 작성되었습니다.", dto.getContent());
     }
 
-    @PatchMapping("/cmnt/{postId}/{cmntId}")
+    @PatchMapping("/cmnt/{cmntId}")
     @ResponseBody
-    public RsData<String> updateCmnt(String content, @PathVariable long postId, @PathVariable long cmntId, HttpServletRequest request) throws ObjectNotFoundException {
+    public RsData<String> updateCmnt(String content, @PathVariable long cmntId, HttpServletRequest request) throws ObjectNotFoundException {
         RsData<String> sessionCheckResult = checkSession(request);
         if (!sessionCheckResult.isSuccess()) {
             return sessionCheckResult;

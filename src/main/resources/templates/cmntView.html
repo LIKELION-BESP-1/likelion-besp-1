@@ -18,11 +18,28 @@
                                 <div style="display: flex; justify-content: flex-end; align-items: center;">
                                     <span style="color: #888; font-size: 14px; margin-right: 20px;">{{createdDate}}</span>
                                     <div>
-                                        <input class="btn btn-primary" id="btnReply" style="margin-right: 10px;" type="button" value="답글달기">
-                                        <input class="btn btn-secondary" id="btnUpdateCmnt" style="margin-right: 10px;" type="button" value="수정">
-                                        <input class="btn btn-danger" id="btnDeleteCmnt" type="button" value="삭제">
+                                        <input class="btn btn-primary" id="btnReply-{{cmntId}}" style="margin-right: 10px;" type="button" value="답글달기">
+                                        <input class="btn btn-secondary" id="btnUpdateCmnt-{{cmntId}}" style="margin-right: 10px;" type="button" value="수정">
+                                        <input class="btn btn-danger" id="btnDeleteCmnt-{{cmntId}}" type="button" value="삭제">
                                     </div>
                                 </div>
+
+                                <!-- 수정 폼 -->
+                                <div id="updateForm-{{cmntId}}" style="display: none; margin-top: 20px;">
+                                    <textarea class="form-control" id="updateContent-{{cmntId}}" placeholder="수정할 내용을 입력하세요" style="resize: vertical;"></textarea>
+                                    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                                        <input class="btn btn-primary" id="btnSubmitUpdate-{{cmntId}}" type="button" value="등록">
+                                    </div>
+                                </div>
+
+                                <!-- 답글 달기 폼 -->
+                                <div id="replyForm-{{cmntId}}" style="display: none; margin-top: 20px;">
+                                    <textarea class="form-control" id="replyContent-{{cmntId}}" placeholder="답글 내용을 입력하세요" style="resize: vertical;"></textarea>
+                                    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                                        <input class="btn btn-primary" id="btnSubmitReply-{{cmntId}}" type="button" value="등록">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </ul>
@@ -37,5 +54,35 @@
     {{>cmntWrite}}
 </div>
 <script>
+    $(document).ready(function() {
+        //업데이트
+        $("input[id^='btnUpdateCmnt-']").click(function() {
+            var cmntId = $(this).attr("id").split("-")[1];
+            var updateForm = $("#updateForm-" + cmntId);
+            updateForm.show();
+        });
 
+        $("input[id^='btnSubmitUpdate-']").click(function() {
+            var cmntId = $(this).attr("id").split("-")[1];
+            var updateContent = $("#updateContent-" + cmntId).val();
+            var url = "/cmnt/" + cmntId;
+
+            // AJAX 요청 보내는 코드 작성
+            $.ajax({
+                url: url,
+                method: "PATCH",
+                data: {
+                    content: updateContent
+                },
+                success: function(response) {
+                    // 요청이 성공했을 때 처리할 내용
+                    console.log("수정 요청이 성공했습니다.");
+                },
+                error: function(error) {
+                    // 요청이 실패했을 때 처리할 내용
+                    console.log("수정 요청이 실패했습니다.");
+                }
+            });
+        });
+    });
 </script>
