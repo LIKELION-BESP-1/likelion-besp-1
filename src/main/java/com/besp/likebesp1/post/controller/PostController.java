@@ -10,8 +10,6 @@ import com.besp.likebesp1.post.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +27,6 @@ public class PostController {
     private final PostService postService;
     private final BoardService boardService;
     private final CmntService cmntService;
-    private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
     public PostController(PostService postService, BoardService boardService, CmntService cmntService) {
@@ -46,6 +43,26 @@ public class PostController {
 
         long memberId = (long) session.getAttribute(LOGIN_USER.name());
         return RsData.successOf(String.valueOf(memberId));
+    }
+
+    private boolean canUpdate(long postId, long boardId, String memberId) {
+        PostDto post = postService.getPost(postId, boardId);
+        return post.getMemberId().equals(memberId);
+    }
+
+    private PostDto getVerifiedPost(long boardId, long postId, HttpServletRequest request) {
+        RsData<String> sessionCheckResult = checkSession(request);
+        if (!sessionCheckResult.isSuccess()) {
+            return null;
+        }
+
+        String memberId = sessionCheckResult.getData();
+
+        if (!canUpdate(postId, boardId, memberId)) {
+            return null;
+        }
+
+        return postService.getPost(postId, boardId);
     }
 
     // 게시판에 연결된 게시글 리스트
@@ -95,56 +112,34 @@ public class PostController {
     }
 
     // 게시글 수정
-    @GetMapping("/{boardId}/posts/{postId}/edit")
-    public String editPostForm(@PathVariable long boardId, @PathVariable long postId, Model model) {
-        PostDto postDto = postService.getPost(boardId, postId);
+    @PatchMapping("/{boardId}/posts/{postId}")
+    @ResponseBody
+    public RsData<String> updatePost(String postTitle, String content, @PathVariable long boardId, @PathVariable long postId, HttpServletRequest request) {
+        PostDto postDto = getVerifiedPost(boardId, postId, request);
+
         if (postDto == null) {
-            logger.error("No post found with boardId: " + boardId + ", postId: " + postId);
-        } else {
-            model.addAttribute("post", postDto);
-            // 모델에 post 객체가 추가되었음을 확인하는 로그
-            logger.info("Post added to model: " + postDto);
-        }
-        return "/post/postEdit";
-    }
-
-
-    @PostMapping("/{boardId}/posts/{postId}/edit")
-    public String editPost(@PathVariable long boardId, @PathVariable long postId, @ModelAttribute PostDto postDto, HttpServletRequest request) {
-        RsData<String> sessionCheckResult = checkSession(request);
-        if (!sessionCheckResult.isSuccess()) {
-            return "redirect:/login";  // 로그인 세션이 없는 경우, 로그인 페이지로 리다이렉트
+            return RsData.of("F-2", "잘못된 로그인 정보입니다.");
         }
 
-        String memberId = sessionCheckResult.getData();
-        PostDto originalPost = postService.getPost(boardId, postId);
-        if (!postService.checkPostOwner(memberId, boardId, postId)) {
-            return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성자와 로그인 사용자가 다른 경우, 게시글 상세 페이지로 리다이렉트
-        }
-
-        postDto.setBoardId(boardId);
-        postDto.setPostId(postId);
+        postDto.setPostTitle(postTitle);
+        postDto.setContent(content);
         postService.updatePost(postDto);
-        return "redirect:/boards/{boardId}/posts/{postId}";
+
+        return RsData.of("S-1", "게시글이 성공적으로 수정되었습니다.");
     }
 
     // 게시글 삭제
     @DeleteMapping("/{boardId}/posts/{postId}")
-    public String deletePost(@PathVariable long boardId, @PathVariable long postId, HttpServletRequest request) {
-        RsData<String> sessionCheckResult = checkSession(request);
-        if (!sessionCheckResult.isSuccess()) {
-            return "redirect:/login";  // 로그인 세션이 없는 경우, 로그인 페이지로 리다이렉트
-        }
+    @ResponseBody
+    public RsData<String> deletePost(@PathVariable long boardId, @PathVariable long postId, HttpServletRequest request) {
+        PostDto postDto = getVerifiedPost(boardId, postId, request);
 
-        String memberId = sessionCheckResult.getData();
-        PostDto originalPost = postService.getPost(boardId, postId);
-        if (!originalPost.getMemberId().equals(memberId)) {
-            return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성자와 로그인 사용자가 다른 경우, 게시글 상세 페이지로 리다이렉트
+        if (postDto == null) {
+            return RsData.of("F-2", "잘못된 로그인 정보입니다.");
         }
 
         postService.deletePost(postId, boardId);
-        return "redirect:/boards/" + boardId + "/posts";
+
+        return RsData.of("S-1", "게시글이 성공적으로 삭제되었습니다.");
     }
-
-
 }

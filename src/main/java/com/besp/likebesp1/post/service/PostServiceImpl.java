@@ -42,7 +42,8 @@ public class PostServiceImpl implements PostService {
     public PostDto getPost(long postId, long boardId) {
         PostDto post = postRepository.getPost(postId, boardId);
         if (post != null) {
-            attachAuthorInfo(post);
+            MemberDto member = memberRepository.findByMemberId(Long.parseLong(post.getMemberId()));  // 작성자의 정보 가져오기
+            post.setUsername(member.getUsername());
         }
         return post;
     }
