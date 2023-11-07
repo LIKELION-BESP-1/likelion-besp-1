@@ -15,7 +15,11 @@ public class MemberRepository {
     private final SqlSessionTemplate sm;
 
     public MemberDto findByUserId(@Param("userId") String userId) {
-        return sm.selectOne("findMember", Map.of("userId", userId));
+        return sm.selectOne("findByUserId", Map.of("userId", userId));
+    }
+
+    public MemberDto findByMemberId(@Param("memberId") Long memberId) {
+        return sm.selectOne("findByMemberId", Map.of("memberId", memberId));
     }
 
     public void save(MemberDto dto) {

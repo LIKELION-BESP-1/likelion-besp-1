@@ -6,10 +6,16 @@
 
 <mapper namespace="com.besp.likebesp1.member.repository.MemberRepository">
 
-    <select id="findMember" resultType="MemberDto">
+    <select id="findByUserId" resultType="MemberDto">
         SELECT *
         FROM Member
         WHERE userId = #{userId}
+    </select>
+
+    <select id="findByMemberId" resultType="MemberDto" parameterType="long">
+        SELECT *
+        FROM Member
+        WHERE memberId = #{memberId}
     </select>
 
     <insert id="insertMember" parameterType="MemberDto">
