@@ -9,6 +9,7 @@ import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static com.besp.likebesp1.common.LoginUser.LOGIN_USER;
 
 @Controller
 @RequestMapping("/boards")
+@Slf4j
 public class PostController {
 
     private final PostService postService;
@@ -116,7 +118,7 @@ public class PostController {
 
         String memberId = sessionCheckResult.getData();
         PostDto originalPost = postService.getPost(boardId, postId);
-        if (!originalPost.getMemberId().equals(memberId)) {
+        if (!postService.checkPostOwner(memberId, boardId, postId)) {
             return "redirect:/boards/" + boardId + "/posts/" + postId;  // 게시글 작성자와 로그인 사용자가 다른 경우, 게시글 상세 페이지로 리다이렉트
         }
 

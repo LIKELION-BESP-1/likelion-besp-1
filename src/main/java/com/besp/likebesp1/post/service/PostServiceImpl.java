@@ -59,4 +59,11 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(postId, boardId);
     }
 
+    // 게시글 소유자 확인 메소드
+    @Override
+    public boolean checkPostOwner(String memberId, long boardId, long postId) {
+        PostDto originalPost = getPost(boardId, postId);
+        return originalPost.getMemberId().equals(memberId);
+    }
+
 }
