@@ -2,6 +2,12 @@ import {createAlert} from './createNode.js';
 
 $(() => {
     $("#sendButton").click(() => {
+
+        if (!checkEmpty()) {
+            alert("해당 값들은 필수입니다");
+            return;
+        }
+
         $.ajax({
             url: "/member/register",
             type: "POST",
@@ -11,7 +17,7 @@ $(() => {
                 const $blurDiv = document.createElement('div');
                 $blurDiv.classList.add("blur-background");
 
-                const $div = createAlert('회원 가입 성공 다시 로그인 해주세요', res);
+                const $div = createAlert('회원 가입 성공', res);
                 const $body = $('body');
                 $($body).append($blurDiv);
                 $($body).append($div);
@@ -21,7 +27,28 @@ $(() => {
                 }, 3000);
             })
             .fail((res, status, error) => {
-                alert("잘못된 요청입니다.");
+                alert("이미 존재하는 아이디 또는 잘못된 비밀번호입니다.");
             });
     })
 })
+
+function checkEmpty() {
+    let check = true;
+    $('#myform input').each(function () {
+        const input = $(this);
+        const isValid = checkInput(input);
+        toggleInputClass(input, isValid);
+        check = check && isValid;
+    });
+
+    return check;
+}
+
+function checkInput(input) {
+    return input.val().trim().length > 0;
+}
+
+function toggleInputClass(input, isValid) {
+    const customClass = 'border border-danger';
+    input.toggleClass(customClass, !isValid);
+}
