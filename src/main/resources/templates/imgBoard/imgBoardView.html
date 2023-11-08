@@ -1,8 +1,7 @@
 {{>layout/header}}
 <body>
+{{>layout/sidebar}}
 <form name="myform" id="myform">
-    {{>layout/sidebar}}
-
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 300px;">
         <div class="container-fluid" style="margin-top:80px">
@@ -15,17 +14,16 @@
                                     <div class="card-body p-4" style="color: #333; font-size: 16px;">
                                         {{#imgBoardView}}
                                         <h2>{{title}}</h2></br>
-                                        <p class="text-muted">{{writer}} &nbsp&nbsp&nbsp {{createdDate}}</p>
+                                        <p class="text-muted" style="text-align: right">{{writer}}</p>
+                                        <p class="text-muted" style="text-align: right">{{createdDate}}</p>
                                         <img src="{{filepath}}" alt="이미지" width="500" height="500" />
-                                        <p class="text-muted">{{filename}}</p>
                                         {{/imgBoardView}}
                                     </div>
-
-                                    <div class="container mt-3" style="text-align:right;">
-                                        <button type="button" class="btn btn-secondary" id="btnUpdate">수정</button>
-                                        <button type="button" class="btn btn-secondary" id="btnDelete">삭제</button>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="container mt-3" style="text-align:right;">
+                                <button type="button" class="btn btn-primary m-1" id="btnUpdate">수정</button>
+                                <button type="button" class="btn btn-primary m-1" id="btnDelete">삭제</button>
                             </div>
                         </div>
                     </div>

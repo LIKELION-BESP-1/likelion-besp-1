@@ -10,11 +10,12 @@
              ,A.title
              ,A.writer
              ,A.filename
+             ,A.filepath
              ,to_char(A.createdDate, 'yyyy-mm-dd') createdDate
              ,A.rnum
         FROM
             (
-                SELECT A.imgBoardId, A.title, A.writer, A.filename, A.createdDate,
+                SELECT A.imgBoardId, A.title, A.writer, A.filename, A.createdDate, A.filepath,
                        row_number() over(order by imgBoardId desc) as rnum,
                         ceil(row_number() over(order by imgBoardId desc)/10)-1 as pg
                 FROM imgBoard A
