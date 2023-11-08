@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.besp.likebesp1.Chat.repository.ChatMessageDao">
     <insert id="ChatMessage_insert" parameterType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
-        INSERT INTO chat_message (room_id, username, content, created_date)
-        VALUES (#{roomId}, #{username}, #{content}, sysdate)
+        INSERT INTO chat_message (chat_message_id, room_id, username, content, created_date)
+        VALUES (CHATMESSAGE_SEQ.NEXTVAL, #{roomId}, #{username}, #{content}, sysdate)
     </insert>
 
     <select id="ChatMessage_selectByRoomId" resultType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
