@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.besp.likebesp1.ChatRoom.repository.ChatRoomDao">
+    <insert id="ChatRoom_insert" parameterType="com.besp.likebesp1.ChatRoom.dto.ChatRoomDto">
+        INSERT INTO chat_room (room_id, name, content, created_date)
+        VALUES (CHATROOM_SEQ.NEXTVAL, #{chatRoomName}, #{chatRoomContent}, sysdate)
+    </insert>
+
+    <select id="ChatRoom_selectAll" resultType="com.besp.likebesp1.ChatRoom.dto.ChatRoomDto">
+        SELECT room_id as roomId, name as chatRoomName, content as chatRoomContent, created_date as createdDate
+        FROM chat_room
+    </select>
+
+    <select id="ChatRoom_findByRoomId" resultType="com.besp.likebesp1.ChatRoom.dto.ChatRoomDto" parameterType="java.lang.Long">
+        SELECT room_id as roomId, name as chatRoomName, content as chatRoomContent, created_date as createdDate
+        FROM chat_room
+        WHERE room_id = #{roomId}
+    </select>
+</mapper>
