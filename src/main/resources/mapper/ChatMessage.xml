@@ -3,7 +3,7 @@
 <mapper namespace="com.besp.likebesp1.Chat.repository.ChatMessageDao">
     <insert id="ChatMessage_insert" parameterType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
         INSERT INTO chat_message (room_id, username, content, created_date)
-        VALUES (CHATMESSAGE_SEQ.NEXTVAL, #{username}, #{content}, sysdate)
+        VALUES (#{roomId}, #{username}, #{content}, sysdate)
     </insert>
 
     <select id="ChatMessage_selectByRoomId" resultType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
