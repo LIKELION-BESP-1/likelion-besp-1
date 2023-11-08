@@ -1,37 +1,37 @@
 {{>layout/header}}
 <body>
+{{>layout/sidebar}}
   <form name="myform" id="myform">
-    <table class="table table-hover ">
-      <thead class="table-secondary">
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>파일명</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#imgBoardList}}
-        <tr>
-          <td>{{imgBoardId}}</td>
-          <td><a href="/imgBoard/view/{{imgBoardId}}">{{title}}</a></td>
-          <td>{{writer}}</td>
-          <td>{{filename}}</td>
-          <td>{{createdDate}}</td>
-        </tr>
-        {{/imgBoardList}}
-      </tbody>
-    </table>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 300px;">
+      <div class="container" style="margin-top: 80px;">
+        <div class="row" style="margin-top: 30px;">
+          {{#imgBoardList}}
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a href="/imgBoard/view/{{imgBoardId}}" class="text-decoration-none text-dark">
+              <div class="card w-100">
+                <div class="card-body">
+                  <h5 class="card-title">{{title}}</h5>
+                  <p class="card-title">{{filename}}</p></br>
+                  <p class="card-text">{{writer}}</p>
+                  <p class="card-text">{{createdDate}}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/imgBoardList}}
+        </div>
 
-    <ul class="pagination  justify-content-center">
-      {{{page}}}
-    </ul>
+        <ul class="pagination  justify-content-center">
+          {{{page}}}
+        </ul>
 
-    <div class="container mt-3" style="text-align:right;">
-      <button type="button" class="btn btn-secondary" id="btnUpload">게시글 작성</button>
-    </div>
-    <br/><br/><br/>
+        <div class="container mt-3" style="text-align:right;">
+          <button type="button" class="btn btn-secondary" id="btnUpload">게시글 작성</button>
+        </div>
+        <br/><br/><br/>
+      </div>
+      </div>
     </div>
   </form>
 </body>

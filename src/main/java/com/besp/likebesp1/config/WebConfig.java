@@ -25,11 +25,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AuthenticatedUserInterceptor())
                 .order(0)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/error", "/member/login", "/member/register", "/assets/**", "/member/logout");
+                .excludePathPatterns("/", "/error", "/member/login", "/member/register", "/assets/**", "/member/logout", "/fileUpload/**");
 
         registry.addInterceptor(new GuestUserInterceptor())
                 .order(1)
-                .addPathPatterns("/member/login", "/member/register");
+                .addPathPatterns("/member/login", "/member/register", "/fileUpload/**");
 
     }
 
