@@ -24,7 +24,7 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label for="name">대화명</label>
-                    <input type="text" id="username" class="form-control" placeholder="Your name here...">
+                    <input type="text" id="username" value="{{memberName}}" readonly class="form-control" placeholder="Your name here...">
                 </div>
                 <div class="form-group">
                     <label for="name">내용</label>
@@ -50,7 +50,7 @@
 </div>
 </body>
 <script>
-    var stompClient = null;
+    let stompClient = null;
     /* TODO: chatList와 roomId를 받아와야함.
         현재는 비어있는 리스트와 roomId 1로 해놓음.
      */
@@ -95,33 +95,42 @@
 
     //html 에서 입력값, roomId 를 받아서 Controller 로 전달
     function sendChat() {
-        stompClient.send("/send/" + roomId, {},
+        stompClient.send(`/send/${roomId}`, {},
             JSON.stringify({
                 'username': $("#username").val(),
                 'content': $("#content").val()
             }));
     }
 
-    //저장된 채팅 불러오기
     function loadChat() {
         // 서버에서 chatList와 roomId를 가져오는 REST API 호출
-        $.ajax({
-            url: '/api/chat-messages', // REST API 엔드포인트 URL
+        fetch(`api/chat-message`, {
             method: 'GET',
-            success: function (data) {
-                chatList = data.chatList; // chatList를 서버에서 가져온 데이터로 설정
-                roomId = data.roomId;     // roomId를 서버에서 가져온 데이터로 설정
-                for (chat in chatList) {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load chat data.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                chatList = data.chatList;
+                roomId = data.roomId;
+                for (const chat of chatList) {
                     $("#chatting").append(
-                        "<tr><td>" + "[" + chatList[chat].username + "]" + chatList[chat].content + "</td></tr>"
+                        `<tr><td>[${chat.username}] ${chat.content}</td></tr>`
                     );
                 }
-            },
-            error: function () {
-                console.log('Failed to load chat data.');
-            }
-        });
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
+
 
     //보낸 채팅 보기
     function showChat(chatMessage) {
