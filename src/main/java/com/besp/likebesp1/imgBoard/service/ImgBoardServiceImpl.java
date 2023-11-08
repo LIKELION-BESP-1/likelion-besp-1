@@ -42,7 +42,7 @@ public class ImgBoardServiceImpl implements ImgBoardService {
     String  domain;
 
     @Override
-    public void uploadFile(MultipartFile file, ImgBoardDto dto) {
+    public void saveFile(MultipartFile file, ImgBoardDto dto) {
         String filename = file.getOriginalFilename(); //업로드된 파일의 파일명 원본
 
         try
@@ -59,6 +59,11 @@ public class ImgBoardServiceImpl implements ImgBoardService {
 
         dto.setFilename(filename);
         dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file, ImgBoardDto dto) {
+        saveFile(file, dto);
     }
 
     @Override
@@ -68,23 +73,8 @@ public class ImgBoardServiceImpl implements ImgBoardService {
 
     @Override
     public void updateFile(MultipartFile file, ImgBoardDto dto, int id) {
-        String filename = file.getOriginalFilename(); //업로드된 파일의 파일명 원본
-
-        try
-        {
-            Path uploadPath = Paths.get(fileUploadPath);
-            Path filePath = uploadPath.resolve(filename); //업로드된 파일의 저장 경로 생성
-            InputStream inputStream = file.getInputStream();
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING); //파일 저장
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
+        saveFile(file, dto);
         dto.setImgBoardId(id);
-        dto.setFilename(filename);
-        dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
     }
 
     @Override

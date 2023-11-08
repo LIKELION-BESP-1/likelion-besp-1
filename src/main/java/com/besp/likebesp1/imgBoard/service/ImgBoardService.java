@@ -11,6 +11,8 @@ public interface ImgBoardService {
 
     ImgBoardDto getView(ImgBoardDto dto);
 
+    void saveFile(MultipartFile file, ImgBoardDto dto);
+
     void uploadFile(MultipartFile file, ImgBoardDto dto);
 
     void upload(ImgBoardDto dto);
