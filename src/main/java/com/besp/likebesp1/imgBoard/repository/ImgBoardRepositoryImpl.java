@@ -18,6 +18,11 @@ public class ImgBoardRepositoryImpl implements ImgBoardRepository {
     }
 
     @Override
+    public int countPage(ImgBoardDto dto) {
+        return sm.selectOne("ImgBoardPage", dto);
+    }
+
+    @Override
     public List<ImgBoardDto> getList(ImgBoardDto dto) {
         return sm.selectList("ImgBoardGetList", dto);
     }

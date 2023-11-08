@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ImgBoard">
+    <select id="ImgBoardPage"  parameterType="ImgBoardDto"  resultType="int" >
+        select count(*)
+        from imgBoard
+    </select>
     <select id="ImgBoardGetList"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
         select
             A.imgBoardId

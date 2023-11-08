@@ -26,6 +26,11 @@ public class ImgBoardServiceImpl implements ImgBoardService {
     }
 
     @Override
+    public int countPage(ImgBoardDto dto) {
+        return imgBoardRepository.countPage(dto);
+    }
+
+    @Override
     public List<ImgBoardDto> getList(ImgBoardDto dto) {
         return imgBoardRepository.getList(dto);
     }
