@@ -12,11 +12,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 @Configuration
 @PropertySource("classpath:/application.yml")
 @Component
 public class WebConfig implements WebMvcConfigurer {
+    private static final Logger logger = Logger.getLogger(WebConfig.class.getName());
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticatedUserInterceptor())
@@ -45,14 +48,14 @@ public class WebConfig implements WebMvcConfigurer {
     {
         Path uploadDir = Paths.get(fileUploadPath);
         String uploadPath = uploadDir.toFile().getAbsolutePath();
-        System.out.println("업로드 경로 : " + uploadPath);
+        logger.info("업로드 경로 : {}" + uploadPath);
 
         if(fileUploadPath.startsWith("../"))
         {
             fileUploadPath = fileUploadPath.replace("../", "");
         }
 
-        System.out.println("업로드 상대적 경로 : " + fileUploadPath);
+        logger.info("업로드 상대적 경로 : {}" + fileUploadPath);
         registry.addResourceHandler("/" + fileUploadPath + "/**")
                 .addResourceLocations("file:/" + uploadPath + "/");
     }
