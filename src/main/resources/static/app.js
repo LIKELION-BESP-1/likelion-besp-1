@@ -1,4 +1,4 @@
-var stompClient = null;
+let stompClient = null;
 var roomId = null; // roomId 변수 초기화
 
 $(document).ready(function() {
