@@ -12,12 +12,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-
-//컨피그할때 어떤 경우는 특정 클래스를 상속받는 경우도 있고 아닌경우도 있다
+//컨피그할때 어떤 경우는 특정 클래스를 상속받는 경우도 있고 아닌 경우도 있다
 @Configuration
 public class DatabaseConfig {
 
-    //클래스내에서 application.properties 파일에 접근하기위해서
+    //클래스 내에서 application.properties 파일에 접근하기 위해서
     @Autowired
     ApplicationContext applicationContext;
 
@@ -70,6 +69,7 @@ public class DatabaseConfig {
         //배포버전 만들때 ~.xml로 시작하는 모든 파일은 src/main/resources 에
         //두지 않으면  우리가 프로젝트 위치에 직접 복사붙여넣기를 해야 한더
         factory.setConfigLocation(configLocation);
+
         return factory.getObject();
     }
 
@@ -78,5 +78,4 @@ public class DatabaseConfig {
             SqlSessionFactory factory) {
         return new SqlSessionTemplate(factory);
     }
-
 }

@@ -1,0 +1,53 @@
+{{>layout/header}}
+<body>
+  <form name="myform" id="myform">
+    <table class="table table-hover ">
+      <thead class="table-secondary">
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>파일명</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#imgBoardList}}
+        <tr>
+          <td>{{imgBoardId}}</td>
+          <td><a href="/imgBoard/view/{{imgBoardId}}">{{title}}</a></td>
+          <td>{{writer}}</td>
+          <td>{{filename}}</td>
+          <td>{{createdDate}}</td>
+        </tr>
+        {{/imgBoardList}}
+      </tbody>
+    </table>
+
+    <ul class="pagination  justify-content-center">
+      {{{page}}}
+    </ul>
+
+    <div class="container mt-3" style="text-align:right;">
+      <button type="button" class="btn btn-secondary" id="btnUpload">게시글 작성</button>
+    </div>
+    <br/><br/><br/>
+    </div>
+  </form>
+</body>
+
+<script>
+  function goPage(pg)
+  {
+    frm = document.myform;
+    frm.method = "get";
+    frm.action = "/imgBoard/list/" + pg;
+    frm.submit();
+  }
+
+  $(document).ready(function() {
+    $("#btnUpload").click(function () {
+      location.href = "/imgBoard/upload";
+    });
+  });
+</script>

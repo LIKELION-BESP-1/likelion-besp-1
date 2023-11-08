@@ -15,6 +15,4 @@ public interface BoardRepository {
     //void delete(long boardId); // 특정 게시판 삭제
 
     BoardDto getBoard(long boardId);
-
-
 }

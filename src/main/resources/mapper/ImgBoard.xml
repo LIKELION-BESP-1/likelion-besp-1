@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ImgBoard">
+    <select id="ImgBoardGetList"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
+        select
+            A.imgBoardId
+             ,A.title
+             ,A.writer
+             ,A.filename
+             ,to_char(A.createdDate, 'yyyy-mm-dd') createdDate
+             ,A.rnum
+        FROM
+            (
+                SELECT A.imgBoardId, A.title, A.writer, A.filename, A.createdDate,
+                       row_number() over(order by imgBoardId desc) as rnum,
+                        ceil(row_number() over(order by imgBoardId desc)/10)-1 as pg
+                FROM imgBoard A
+            )A where pg = #{pg}
+    </select>
+    <select id="ImgBoardGetView"  parameterType="ImgBoardDto"  resultType="ImgBoardDto" >
+        select
+            A.imgBoardId
+             ,A.title
+             ,A.writer
+             ,A.filename
+             ,A.filepath
+             ,A.createdDate
+        from imgBoard A
+        where A.imgBoardId = #{imgBoardId}
+    </select>
+    <insert id="ImgBoardUpload" parameterType="ImgBoardDto">
+        <selectKey resultType="Integer" keyProperty="imgBoardId" order="BEFORE">
+            select nvl(max(imgBoardId), 0)+1 from imgBoard
+        </selectKey>
+        insert into imgBoard
+        (
+        imgBoardId
+        ,title
+        ,writer
+        ,filename
+        ,filepath
+        ,createdDate
+        )
+        values
+        (
+        #{imgBoardId}
+        ,#{title}
+        ,#{writer}
+        ,#{filename}
+        ,#{filepath}
+        ,sysdate
+        )
+    </insert>
+    <update id="ImgBoardUpdate"  parameterType="ImgBoardDto" >
+        update imgboard
+        set
+            title = #{title}
+            ,filename = #{filename}
+            ,filepath = #{filepath}
+            ,createdDate = sysdate
+        where imgBoardId = #{imgBoardId}
+    </update>
+    <delete id="ImgBoardDelete"  parameterType="ImgBoardDto" >
+        delete
+        from imgBoard
+        where imgBoardId = #{imgBoardId}
+    </delete>
+</mapper>
