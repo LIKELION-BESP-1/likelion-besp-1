@@ -7,9 +7,9 @@
     </insert>
 
     <select id="ChatMessage_selectByRoomId" resultType="com.besp.likebesp1.Chat.dto.ChatMessageDto">
-        SELECT username as username, content as content, created_date as createdDate
+        SELECT username as chatUsername, content as chatContent, created_date as chatCreatedDate
         FROM chat_message
         WHERE room_id = #{roomId}
-        ORDER BY created_date ASC
+        ORDER BY chatCreatedDate ASC
     </select>
 </mapper>
