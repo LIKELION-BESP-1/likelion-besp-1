@@ -12,13 +12,17 @@ public class PostDto extends BaseDto {
     private String postTitle = "";
     private String content = "";
     private String createdDate = "";
+    private String memberId = "";
+    private String username = "";
 
-    public PostDto(long postId, long boardId, String postTitle, String content, String createdDate) {
+    public PostDto(long postId, long boardId, String postTitle, String content, String createdDate, String memberId, String username) {
         this.postId = postId;
         this.boardId = boardId;
         this.postTitle = postTitle;
         this.content = content;
         this.createdDate = createdDate;
+        this.memberId = memberId;
+        this.username = username;
     }
 
     public PostDto() {
