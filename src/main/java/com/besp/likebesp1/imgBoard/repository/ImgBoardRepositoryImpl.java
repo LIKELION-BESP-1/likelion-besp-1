@@ -10,8 +10,12 @@ import java.util.List;
 
 @Repository("imgBoardRepository")
 public class ImgBoardRepositoryImpl implements ImgBoardRepository {
+    private SqlSessionTemplate sm;
+
     @Autowired
-    SqlSessionTemplate sm;
+    public ImgBoardRepositoryImpl(SqlSessionTemplate sm) {
+        this.sm = sm;
+    }
 
     @Override
     public List<ImgBoardDto> getList(ImgBoardDto dto) {

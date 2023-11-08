@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 @PropertySource("classpath:/application.yml")
 @Component
 public class WebConfig implements WebMvcConfigurer {
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticatedUserInterceptor())

@@ -55,37 +55,17 @@ public class ImgBoardController {
         return "/imgBoard/imgBoardUpload";
     }
 
-    //application.yml 파일에서 fileUploadPath와 domain 속성값 주입
-    @Value("${fileUploadPath}")
-    String  fileUploadPath;
-    @Value("${domain}")
-    String  domain;
-
     @PostMapping("/upload")
     @ResponseBody
     public HashMap<String, Object> upload(MultipartFile file, ImgBoardDto dto)
     {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        String filename = file.getOriginalFilename(); //업로드된 파일의 파일명 원본
 
-        try
-        {
-            Path uploadPath = Paths.get(fileUploadPath);
-            Path filePath = uploadPath.resolve(filename); //업로드된 파일의 저장 경로 생성
-            InputStream inputStream = file.getInputStream();
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING); //파일 저장
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        dto.setFilename(filename);
-        dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
+        imgBoardService.uploadFile(file, dto);
         imgBoardService.upload(dto);
 
-        resultMap.put("filename", filename);
-        resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
+        resultMap.put("filename", dto.getFilename());
+        resultMap.put("filepath", dto.getFilepath());
 
         return resultMap;
     }
@@ -105,27 +85,12 @@ public class ImgBoardController {
     public HashMap<String, Object> update(MultipartFile file, ImgBoardDto dto, @PathVariable("id") int id)
     {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        String filename = file.getOriginalFilename(); //업로드된 파일의 파일명 원본
 
-        try
-        {
-            Path uploadPath = Paths.get(fileUploadPath);
-            Path filePath = uploadPath.resolve(filename); //업로드된 파일의 저장 경로 생성
-            InputStream inputStream = file.getInputStream();
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING); //파일 저장
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        dto.setImgBoardId(id);
-        dto.setFilename(filename);
-        dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
+        imgBoardService.updateFile(file, dto, id);
         imgBoardService.update(dto);
 
-        resultMap.put("filename", filename);
-        resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
+        resultMap.put("filename", dto.getFilename());
+        resultMap.put("filepath", dto.getFilepath());
 
         return resultMap;
     }
