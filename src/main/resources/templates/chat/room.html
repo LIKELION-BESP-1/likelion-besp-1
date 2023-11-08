@@ -51,12 +51,8 @@
 </body>
 <script>
     let stompClient = null;
-    /* TODO: chatList와 roomId를 받아와야함.
-        현재는 비어있는 리스트와 roomId 1로 해놓음.
-     */
-
-    var chatList = {};
-    var roomId = 1;
+    let chatList = {{chatList}};
+    let roomId = {{roomId}};
 
     function setConnected(connected) {
         $("#connect").prop("disabled", connected);
@@ -71,7 +67,7 @@
     }
 
     function connect() {
-        var socket = new SockJS('/ws-stomp');
+        let socket = new SockJS('/ws-stomp');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             setConnected(true);
@@ -104,7 +100,7 @@
 
     function loadChat() {
         // 서버에서 chatList와 roomId를 가져오는 REST API 호출
-        fetch(`api/chat-message`, {
+        fetch(`${roomId}/messages`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,6 +113,7 @@
                 }
                 return response.json();
             })
+            // loadChat 함수 내에서 대화명 업데이트
             .then(data => {
                 chatList = data.chatList;
                 roomId = data.roomId;
