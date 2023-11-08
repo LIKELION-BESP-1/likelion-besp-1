@@ -1,7 +1,10 @@
 {{> layout/header}}
 
 <body>
-<div>
+{{>layout/sidebar}}
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 250px;">
     <form action="/boards/{{boardId}}/posts/new" method="post" id="myform" name="myform">
         <div class="container" style="margin-top:80px">
             <h2>게시글 작성</h2>

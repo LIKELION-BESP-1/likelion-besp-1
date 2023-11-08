@@ -1,36 +1,117 @@
-{{> layout/header}}
+{{>layout/header}}
 
 <body>
-<div>
-    <div class="container" style="margin-top:80px">
-        <h2>게시글 상세</h2>
+{{>layout/sidebar}}
+<!--  Body Wrapper -->
 
-        <table class="table table-hover " style="margin-top: 30px;">
-            <colgroup>
-                <col width="25%">
-                <col width="*">
-            </colgroup>
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed" style="margin-left: 250px;">
+    <div class="container-fluid" style="margin-top:80px">
+        <div class="col-lg-11 d-flex align-items-stretch">
+            <div class="card w-100" style="margin-top: 30px;">
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <div class="card w-100" style="padding: 20px; border-radius: 15px; box-shadow: 0 0.5em 1em -0.125em rgba(108, 68, 162, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);">
+                            <div class="card-body p-4" style="color: #333; font-size: 16px;">
+                                <h2>{{post.postTitle}}</h2>
+                                <p class="text-muted">{{post.username}}</p>
+                                <p class="text-muted">{{post.createdDate}}</p>
+                            </div>
 
-            <tbody>
-            <tr>
-                <td>제목</td>
-                <td>{{post.postTitle}}</td>
-            </tr>
-            <tr>
-                <td>내용</td>
-                <td>{{post.content}}</td>
-            </tr>
-            <tr>
-                <td>작성일</td>
-                <td>{{post.createdDate}}</td>
-            </tr>
-            </tbody>
-        </table>
+                            <div class="card w-100" style="border-radius: 15px; box-shadow: 0 0.5em 1em -0.125em rgba(108, 68, 162, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);">
+                                <div class="card-body p-4" style="color: #333; font-size: 16px;">
+                                    <h5 class="card-title">{{post.content}}</h5>
+                                </div>
 
-        <div class="container mt-3" style="text-align:right;">
-            <a class="btn btn-primary" href="/boards/{{boardId}}/posts/{{postId}}/edit">수정하기</a>
-            <a class="btn btn-secondary" href="/boards/{{post.boardId}}/posts">목록으로</a>
+                                <div class="card-body text-muted" style="text-align:right;">
+                                    {{#isAuthor}}
+                                    <button id="btnUpdatePost" class="btn btn-primary">수정</button>
+                                    <button id="btnDeletePost" class="btn btn-secondary">삭제</button>
+                                    {{/isAuthor}}
+                                    <a class="btn btn-danger" href="/boards/{{post.boardId}}/posts">목록으로</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 수정 폼 -->
+                    <div id="updatePostForm" style="display: none; margin-top: 20px;">
+                        <input type="text" class="form-control" id="updatePostTitle" placeholder="수정할 제목을 입력하세요">
+                        <textarea class="form-control" id="updatePostContent" placeholder="수정할 내용을 입력하세요" style="resize: vertical; margin-top: 10px;"></textarea>
+                        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <input class="btn btn-primary" id="btnSubmitUpdatePost" type="button" value="등록">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        {{> cmntView}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        // 게시글 수정
+        $("#btnUpdatePost").click(function() {
+            var postId = {{post.postId}};
+            var updatePostForm = $("#updatePostForm");
+            updatePostForm.show();
+        });
+
+        $("#btnSubmitUpdatePost").click(function() {
+            var postId = {{post.postId}};
+            var postTitle = $("#updatePostTitle").val();
+            var content = $("#updatePostContent").val();
+            var url = "/boards/{{post.boardId}}/posts/" + postId;
+
+            // AJAX 요청 보내는 코드 작성
+            $.ajax({
+                url: url,
+                method: "PATCH",
+                data: {
+                    postTitle: postTitle,
+                    content: content
+                },
+                success: function (response) {
+                    // 요청이 성공했을 때 처리할 내용
+                    console.log("수정 요청이 성공했습니다.");
+                    location.href = "/boards/{{post.boardId}}/posts/" + postId;
+                },
+                error: function (error) {
+                    // 요청이 실패했을 때 처리할 내용
+                    console.log("수정 요청이 실패했습니다.");
+                    alert("수정 요청이 실패했습니다.");
+                }
+            });
+        });
+
+        // 게시글 삭제
+        $("#btnDeletePost").click(function() {
+            var postId = {{post.postId}};
+            var url = "/boards/{{post.boardId}}/posts/" + postId;
+
+            // AJAX 요청 보내는 코드 작성
+            var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+            if (confirmDelete) {
+                $.ajax({
+                    url: url,
+                    method: "DELETE",
+                    success: function (response) {
+                        // 요청이 성공했을 때 처리할 내용
+                        console.log("삭제 요청이 성공했습니다.");
+                        location.href = "/boards/{{post.boardId}}/posts";
+                    },
+                    error: function (error) {
+                        // 요청이 실패했을 때 처리할 내용
+                        console.log("삭제 요청이 실패했습니다.");
+                        alert("삭제 요청이 실패했습니다.");
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>

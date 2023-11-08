@@ -3,6 +3,7 @@ package com.besp.likebesp1.board.service;
 import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.repository.BoardRepository;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +13,9 @@ import java.util.List;
 @Transactional
 public class BoardServiceImpl implements BoardService {
 
-    @Resource(name = "boardRepository")
-    BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
+    @Autowired
     public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }

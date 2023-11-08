@@ -17,35 +17,35 @@
                             <a href="../html/index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
                                 <img src="../../static/assets/images/logos/dark-logo.svg" width="180" alt="">
                             </a>
-                            <p class="text-center">Your Social Campaigns</p>
+                            <p class="text-center">Register Form </p>
                             <form action="/member/register" method="post" id="myform">
                                 <div class="mb-3">
                                     <label for="userId" class="form-label">id</label>
-                                    <input type="text" class="form-control" id="userId" name="userId"
+                                    <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요"
                                            aria-describedby="textHelp">
                                 </div>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="이름을 입력하세요"
                                            aria-describedby="textHelp">
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control" id="password" name="password" minlength="4" placeholder="비밀번호를 4자리 이상 입력하세요">
                                 </div>
                                 <div class="mb-4">
                                     <label for="phone" class="form-label">phone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone">
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요">
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="form-label">email</label>
-                                    <input type="text" class="form-control" id="email" name="email">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
                                 </div>
                                 <button type="button" id="sendButton" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
                                     Up</button>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
-                                    <a class="text-primary fw-bold ms-2" href="login.html">Sign In</a>
+                                    <a class="text-primary fw-bold ms-2" href="/member/login">Sign In</a>
                                 </div>
                             </form>
                         </div>
@@ -57,7 +57,7 @@
 </div>
 <script src="../../static/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="../../static/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/register.js"></script>
+<script src="/assets/js/register.js" type="module"></script>
 </body>
 
 </html>
