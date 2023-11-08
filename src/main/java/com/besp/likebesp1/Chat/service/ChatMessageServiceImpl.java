@@ -2,6 +2,7 @@ package com.besp.likebesp1.Chat.service;
 
 import com.besp.likebesp1.Chat.repository.ChatMessageDao;
 import com.besp.likebesp1.Chat.dto.ChatMessageDto;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,8 @@ import java.util.List;
 @Service("ChatMessageService")
 @Transactional
 public class ChatMessageServiceImpl implements ChatMessageService {
-    private final ChatMessageDao chatMessageDao;
+    @Resource(name = "chatMessageDao")
+    ChatMessageDao chatMessageDao;
 
     @Autowired
     public ChatMessageServiceImpl(ChatMessageDao chatMessageDao) {
