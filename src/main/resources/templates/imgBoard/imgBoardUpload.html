@@ -63,6 +63,8 @@
                     alert("업로드 완료");
                     console.log(res.filename);
                     console.log(res.filepath);
+
+                    window.location.href = "/imgBoard/list/0";
                 })
                 .fail( (res, error, status)=>{
                     console.log( error );

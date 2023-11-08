@@ -3,7 +3,9 @@ package com.besp.likebesp1.imgBoard.controller;
 import com.besp.likebesp1.common.Pager;
 import com.besp.likebesp1.imgBoard.entity.ImgBoardDto;
 import com.besp.likebesp1.imgBoard.repository.ImgBoardRepository;
+import com.besp.likebesp1.imgBoard.service.ImgBoardService;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +22,18 @@ import java.util.List;
 
 @Controller
 public class ImgBoardController {
-    @Resource(name = "imgBoardRepository")
-    ImgBoardRepository repository;
+    ImgBoardService imgBoardService;
+
+    @Autowired
+    public ImgBoardController(ImgBoardService imgBoardService) {
+        this.imgBoardService = imgBoardService;
+    }
 
     @GetMapping("/imgBoard/list/{pg}")
     public String imgBoardList(Model model, ImgBoardDto dto, @PathVariable("pg") int pg) {
         String page = Pager.makePage(10, 100, pg);
         dto.setPg(pg);
-        List<ImgBoardDto> list = repository.getList(dto);
+        List<ImgBoardDto> list = imgBoardService.getList(dto);
 
         model.addAttribute("imgBoardList", list);
         model.addAttribute("page", page);
@@ -38,7 +44,7 @@ public class ImgBoardController {
     public String imgBoardView(Model model, @PathVariable("id") int id) {
         ImgBoardDto dto = new ImgBoardDto();
         dto.setImgBoardId(id);
-        ImgBoardDto resultDto = repository.getView(dto);
+        ImgBoardDto resultDto = imgBoardService.getView(dto);
 
         model.addAttribute("imgBoardView", resultDto);
         return "/imgBoard/imgBoardView";
@@ -76,7 +82,7 @@ public class ImgBoardController {
 
         dto.setFilename(filename);
         dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
-        repository.upload(dto);
+        imgBoardService.upload(dto);
 
         resultMap.put("filename", filename);
         resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
@@ -88,7 +94,7 @@ public class ImgBoardController {
     public String imgBoardUpdate(Model model, @PathVariable("id") int id) {
         ImgBoardDto dto = new ImgBoardDto();
         dto.setImgBoardId(id);
-        ImgBoardDto resultDto = repository.getView(dto);
+        ImgBoardDto resultDto = imgBoardService.getView(dto);
 
         model.addAttribute("imgBoardView", resultDto);
         return "/imgBoard/imgBoardUpdate";
@@ -116,7 +122,7 @@ public class ImgBoardController {
         dto.setImgBoardId(id);
         dto.setFilename(filename);
         dto.setFilepath(domain + "/" + fileUploadPath + "/" + filename);
-        repository.update(dto);
+        imgBoardService.update(dto);
 
         resultMap.put("filename", filename);
         resultMap.put("filepath", domain + "/" + fileUploadPath + "/" + filename);
@@ -126,7 +132,7 @@ public class ImgBoardController {
 
     @GetMapping("/imgBoard/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        repository.delete(id);
+        imgBoardService.delete(id);
 
         return "redirect:/imgBoard/list/0";
     }
