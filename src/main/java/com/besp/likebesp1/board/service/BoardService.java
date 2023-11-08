@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface BoardService {
     List<BoardDto> getList(BoardDto dto);
-    BoardDto getView(long boardId);
+
     void insert(BoardDto dto);
 
     BoardDto getBoard(long boardId);
+
+    int getTotalPosts(BoardDto dto);
+
+    List<BoardDto> getList(BoardDto dto, int startIndex, int endIndex);
 
 }

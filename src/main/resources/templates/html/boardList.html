@@ -33,6 +33,17 @@
       {{/boardList}}
     </div>
 
+    <div class="container mt-3" style="text-align:center;">
+      <ul class="pagination justify-content-center">
+        {{{pagingTags}}}
+      </ul>
+    </div>
+
   </div>
 </div>
+<script>
+  function goPage(pageNumber) {
+    window.location.href = "/board/list?page=" + pageNumber;
+  }
+</script>
 </body>

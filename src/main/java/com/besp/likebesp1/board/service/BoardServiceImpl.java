@@ -26,11 +26,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto getView(long boardId) {
-        return boardRepository.getView(boardId);
-    }
-
-    @Override
     public void insert(BoardDto dto) {
         boardRepository.insert(dto);
     }
@@ -38,5 +33,15 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardDto getBoard(long boardId) {
         return boardRepository.getBoard(boardId);
+    }
+
+    @Override
+    public int getTotalPosts(BoardDto dto) {
+        return boardRepository.getTotalPosts(dto);
+    }
+
+    @Override
+    public List<BoardDto> getList(BoardDto dto, int startIndex, int endIndex) {
+        return boardRepository.getList(dto, startIndex, endIndex);
     }
 }

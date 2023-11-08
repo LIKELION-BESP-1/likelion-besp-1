@@ -28,4 +28,30 @@
         insert into Board (boardId, boardName, createdDate)
         values (#{boardId}, #{boardName}, sysdate)
     </insert>
+
+    <select id="Board_getTotalPosts" resultType="int" parameterType="BoardDto">
+        select count(*) from Board
+        where 1=1
+        <if test="boardName != null">
+            and boardName like '%' || #{boardName} || '%'
+        </if>
+    </select>
+
+    <select id="Board_getPagedList" resultType="BoardDto" parameterType="java.util.Map">
+        select *
+        from (
+        select rownum as rn, b.*
+        from (
+        select A.boardId, A.boardName, A.createdDate
+        from Board A
+        where 1=1
+        <if test="dto.boardName != null">
+            and A.boardName like '%' || #{dto.boardName} || '%'
+        </if>
+        order by A.createdDate desc
+        ) b
+        where rownum &lt;= #{endIndex}
+        )
+        where rn &gt; #{startIndex}
+    </select>
 </mapper>

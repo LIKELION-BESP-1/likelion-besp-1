@@ -7,10 +7,7 @@ import com.besp.likebesp1.common.Pager;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,9 +18,25 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/board/list")
-    public String board_list(Model model, BoardDto dto) {
-        List<BoardDto> boardList = boardService.getList(dto);
+    public String board_list(Model model, BoardDto dto,
+                             @RequestParam(value = "page", defaultValue = "0") int page,
+                             @RequestParam(value = "size", defaultValue = "10") int size) {
+        int totalPosts = boardService.getTotalPosts(dto);
+
+        // 페이징 처리를 위한 Pager 클래스의 makePage 메서드를 호출하여 HTML 태그 생성
+        String pagingTags = Pager.makePage(size, totalPosts, page);
+
+        // 페이징에 필요한 시작 인덱스와 가져올 게시물 수 계산
+        int startIndex = page * size;
+        int endIndex = Math.min((page + 1) * size, totalPosts);
+
+        // 게시물 리스트 가져오기
+        List<BoardDto> boardList = boardService.getList(dto, startIndex, endIndex);
+
+        // 모델에 데이터 추가
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pagingTags", pagingTags);
+
         return "/html/boardList";
     }
 
