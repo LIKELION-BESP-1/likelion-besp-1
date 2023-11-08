@@ -4,6 +4,7 @@ import com.besp.likebesp1.board.entity.BoardDto;
 import com.besp.likebesp1.board.service.BoardService;
 import com.besp.likebesp1.cmnt.dto.CmntDto;
 import com.besp.likebesp1.cmnt.service.CmntService;
+import com.besp.likebesp1.common.Pager;
 import com.besp.likebesp1.common.RsData;
 import com.besp.likebesp1.post.entity.PostDto;
 import com.besp.likebesp1.post.service.PostService;
@@ -67,18 +68,34 @@ public class PostController {
 
     // 게시판에 연결된 게시글 리스트
     @GetMapping("/{boardId}/posts")
-    public String getPostsByBoard(@PathVariable long boardId, Model model) {
+    public String getPostsByBoard(@PathVariable("boardId") long boardId, Model model,
+                                  @RequestParam(value = "page", defaultValue = "0") int page,
+                                  @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        int totalPosts = postService.getTotalPosts(boardId);
+
+        // 페이징 처리를 위한 Pager 클래스의 makePage 메서드를 호출하여 HTML 태그 생성
+        String pagingTags = Pager.makePage(size, totalPosts, page);
+
+        // 페이징에 필요한 시작 인덱스와 가져올 게시물 수 계산
+        int startIndex = page * size;
+        int endIndex = Math.min((page + 1) * size, totalPosts);
+
+        // 게시글 리스트 가져오기
         PostDto postDto = new PostDto();
         postDto.setBoardId(boardId);
-        List<PostDto> postList = postService.getList(postDto);
+        List<PostDto> postList = postService.getList(postDto, startIndex, endIndex);
 
         // 게시판 정보를 가져와 모델에 추가
         BoardDto board = boardService.getBoard(boardId);
         model.addAttribute("board", board);
 
         model.addAttribute("postList", postList);
+        model.addAttribute("pagingTags", pagingTags);
+
         return "/post/postList";
     }
+
 
     // 게시글 상세 페이지
     @GetMapping("/{boardId}/posts/{postId}")

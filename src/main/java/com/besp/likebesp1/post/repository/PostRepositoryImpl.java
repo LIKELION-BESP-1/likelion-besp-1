@@ -22,8 +22,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostDto> getList(PostDto dto) {
-        return sm.selectList("Post_getList", dto);
+    public List<PostDto> getList(PostDto dto, int startIndex, int endIndex) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("dto", dto);
+        params.put("startIndex", startIndex);
+        params.put("endIndex", endIndex);
+        return sm.selectList("Post_getList", params);
     }
 
     @Override
@@ -45,6 +49,11 @@ public class PostRepositoryImpl implements PostRepository {
         params.put("postId", postId);
         params.put("boardId", boardId);
         sm.delete("Post_delete", params);
+    }
+
+    @Override
+    public int getTotalPosts(long boardId) {
+        return sm.selectOne("Post_getTotalPosts", boardId);
     }
 
 }
