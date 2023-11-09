@@ -6,7 +6,7 @@
 <mapper namespace="com.besp.likebesp1.post.repository.PostRepository">
 
     <insert id="Post_insert" parameterType="PostDto">
-        <selectKey resultType="Integer" keyProperty="postId" order="BEFORE">
+        <selectKey resultType="Long" keyProperty="postId" order="BEFORE">
             select nvl(max(postId), 0)+1 from Post
         </selectKey>
 
@@ -20,10 +20,12 @@
         WHERE P.postId = #{postId} AND P.boardId = #{boardId}
     </select>
 
-    <select id="Post_getList" parameterType="PostDto" resultType="PostDto">
+    <select id="Post_getList" parameterType="map" resultType="PostDto">
         SELECT P.*, M.username FROM Post P
         JOIN Member M ON P.memberId = M.memberId
-        WHERE P.boardId = #{boardId}
+        WHERE P.boardId = #{dto.boardId}
+        ORDER BY P.createdDate DESC
+        OFFSET #{startIndex} ROWS FETCH NEXT (#{endIndex} - #{startIndex}) ROWS ONLY
     </select>
 
     <update id="Post_update" parameterType="PostDto">
@@ -37,4 +39,8 @@
         WHERE postId = #{postId} AND boardId = #{boardId}
     </delete>
 
+    <select id="Post_getTotalPosts" parameterType="long" resultType="int">
+        SELECT COUNT(*) FROM Post
+        WHERE boardId = #{boardId}
+    </select>
 </mapper>

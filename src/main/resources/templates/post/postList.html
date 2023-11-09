@@ -31,6 +31,23 @@
             {{/postList}}
         </div>
 
+        <div class="container mt-3" style="text-align:center;">
+            <ul class="pagination justify-content-center">
+                {{{pagingTags}}}
+            </ul>
+        </div>
+
     </div>
 </div>
+
+<script>
+    function goPage(pageNumber, boardId) {
+        if (boardId !== undefined) {
+            window.location.href = "/boards/" + encodeURIComponent(boardId) + "/posts?page=" + pageNumber;
+        } else {
+            alert("게시판 ID를 확인할 수 없습니다.");
+        }
+    }
+</script>
+
 </body>
