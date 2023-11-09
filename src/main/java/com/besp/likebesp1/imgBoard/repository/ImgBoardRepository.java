@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ImgBoardRepository {
+    int countPage(ImgBoardDto dto);
     List<ImgBoardDto> getList(ImgBoardDto dto);
 
     ImgBoardDto getView(ImgBoardDto dto);

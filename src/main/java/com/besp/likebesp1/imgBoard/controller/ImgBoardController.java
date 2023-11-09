@@ -31,7 +31,8 @@ public class ImgBoardController {
 
     @GetMapping("/imgBoard/list/{pg}")
     public String imgBoardList(Model model, ImgBoardDto dto, @PathVariable("pg") int pg) {
-        String page = Pager.makePage(10, 100, pg);
+        int counted = imgBoardService.countPage(dto);
+        String page = Pager.makePage(10, counted, pg);
         dto.setPg(pg);
         List<ImgBoardDto> list = imgBoardService.getList(dto);
 

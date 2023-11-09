@@ -1,37 +1,37 @@
 {{>layout/header}}
 <body>
+{{>layout/sidebar}}
   <form name="myform" id="myform">
-    <table class="table table-hover ">
-      <thead class="table-secondary">
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>파일명</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#imgBoardList}}
-        <tr>
-          <td>{{imgBoardId}}</td>
-          <td><a href="/imgBoard/view/{{imgBoardId}}">{{title}}</a></td>
-          <td>{{writer}}</td>
-          <td>{{filename}}</td>
-          <td>{{createdDate}}</td>
-        </tr>
-        {{/imgBoardList}}
-      </tbody>
-    </table>
-
-    <ul class="pagination  justify-content-center">
-      {{{page}}}
-    </ul>
-
-    <div class="container mt-3" style="text-align:right;">
-      <button type="button" class="btn btn-secondary" id="btnUpload">게시글 작성</button>
-    </div>
-    <br/><br/><br/>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+      <div class="body-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col"  style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start;">
+              {{#imgBoardList}}
+              <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                  <a href="/imgBoard/view/{{imgBoardId}}" ><img src="{{filepath}}" alt="이미지" width="250px" height="250px" /></a>
+                </div>
+                <div class="card-body pt-3 p-4">
+                  <h6 class="fw-semibold fs-4">{{title}}</h6>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="card-text">{{writer}}</p>
+                    <p class="card-text">{{createdDate}}</p>
+                  </div>
+                </div>
+              </div>
+              {{/imgBoardList}}
+            </div>
+            <ul class="pagination  justify-content-center">
+              {{{page}}}
+            </ul>
+            <div class="uploadButton" style="text-align: right;">
+              <button type="button" class="btn btn-primary m-1" id="btnUpload">게시글 작성</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 </body>

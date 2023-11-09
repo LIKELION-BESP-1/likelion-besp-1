@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ImgBoardService {
+    int countPage(ImgBoardDto dto);
+
     List<ImgBoardDto> getList(ImgBoardDto dto);
 
     ImgBoardDto getView(ImgBoardDto dto);
