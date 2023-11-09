@@ -28,6 +28,12 @@ $(() => {
             })
             .fail((res, status, error) => {
                 alert("이미 존재하는 아이디 또는 잘못된 비밀번호입니다.");
+                let $userId = $('#userId');
+                let $password = $('#password');
+                $userId.val('').focus();
+                $password.val('');
+                toggleInputClass($userId, false);
+                toggleInputClass($password, false);
             });
     })
 })
@@ -45,10 +51,11 @@ function checkEmpty() {
 }
 
 function checkInput(input) {
-    return input.val().trim().length > 0;
+    return input.get(0).checkValidity();
 }
 
-function toggleInputClass(input, isValid) {
+function toggleInputClass(input, isValid,) {
     const customClass = 'border border-danger';
     input.toggleClass(customClass, !isValid);
+
 }
