@@ -11,4 +11,8 @@ public interface BoardService {
 
     BoardDto getBoard(long boardId);
 
+    int getTotalPosts(BoardDto dto);
+
+    List<BoardDto> getList(BoardDto dto, int startIndex, int endIndex);
+
 }

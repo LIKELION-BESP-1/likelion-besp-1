@@ -30,8 +30,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getList(PostDto postDto) {
-        List<PostDto> postList = postRepository.getList(postDto);
+    public List<PostDto> getList(PostDto postDto, int startIndex, int endIndex) {
+        List<PostDto> postList = postRepository.getList(postDto, startIndex, endIndex);
         for (PostDto post : postList) {
             attachAuthorInfo(post);
         }
@@ -56,6 +56,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(long postId, long boardId) {
         postRepository.delete(postId, boardId);
+    }
+
+    @Override
+    public int getTotalPosts(long boardId) {
+        return postRepository.getTotalPosts(boardId);
     }
 
     // 게시글 소유자 확인 메소드

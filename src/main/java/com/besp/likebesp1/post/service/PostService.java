@@ -7,7 +7,7 @@ import java.util.List;
 public interface PostService {
     long insert(PostDto dto, long boardId);
 
-    List<PostDto> getList(PostDto dto);
+    List<PostDto> getList(PostDto postDto, int startIndex, int endIndex);
 
     PostDto getPost(long postId, long boardId);
 
@@ -17,4 +17,5 @@ public interface PostService {
 
     boolean checkPostOwner(String memberId, long boardId, long postId);
 
+    int getTotalPosts(long boardId);
 }
