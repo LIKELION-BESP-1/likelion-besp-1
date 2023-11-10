@@ -75,7 +75,7 @@
             loadChat(chatList);  //저장된 채팅 불러오기
 
             //구독
-            stompClient.subscribe('/room/' + roomId, function (chatMessage) {
+            stompClient.subscribe(`/room/${roomId}`, function (chatMessage) {
                 showChat(JSON.parse(chatMessage.body));
             });
         });
@@ -100,7 +100,7 @@
 
     function loadChat() {
         // 서버에서 chatList와 roomId를 가져오는 REST API 호출
-        fetch(`${roomId}/messages`, {
+        fetch(`/${roomId}/messages`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,6 +125,7 @@
             })
             .catch(error => {
                 console.error(error);
+                alert('채팅을 불러오는데 실패했습니다. 다시 시도해주세요.');
             });
     }
 
